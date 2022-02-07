@@ -1,15 +1,59 @@
 <template>
-  <header class="app-bar">
-    <a @click="$router.back()" class="back">뒤로가기</a>
-    <div class="page-title"></div>
+  <header>
+    <nav>
+      <a @click="$router.back()" class="left">
+        <img src="@/assets/img/left-arrow.svg" alt="left" />
+      </a>
+      <router-link to="/sidemenu" class="right">
+        <img src="@/assets/img/menu.svg" alt="menu" />
+      </router-link>
+    </nav>
+    <div class="page-title">{{ pageTitle }}</div>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    pageTitle() {
+      return this.$route.meta.pageTitle;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.app-bar {
+header {
+  position: relative;
+  background-color: inherit;
+  nav {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    a {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 2;
+
+      img {
+        display: block;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  .page-title {
+    font-weight: $font-weight-bold;
+    line-height: 60px;
+    text-align: center;
+  }
 }
 </style>
