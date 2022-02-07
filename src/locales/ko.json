@@ -1,3 +1,7 @@
 {
-  "message": "hello i18n !!"
+  "home": {
+    "pageTitle": "홈",
+    "greeting": "님, 안녕하세요!<br/>이번 주 미션은 달성하셨나요?"
+  },
+  "message": "hello"
 }
