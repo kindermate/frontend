@@ -29,6 +29,19 @@ export default {};
 
 <style lang="scss" scoped>
 nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 600px;
   display: flex;
+  background-color: $yellow;
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+
+  a {
+    color: $black;
+    font-size: $font-sm;
+  }
 }
 </style>

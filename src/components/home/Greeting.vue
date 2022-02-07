@@ -1,15 +1,37 @@
 <template>
-  <div class="greeting">
+  <div v-if="user" class="greeting">
     <div class="text">
-      <span class="username">홍길동</span>
+      <span class="username">{{ user.nickname }}</span>
       <span class="greetings" v-html="$t('home.greeting')"></span>
     </div>
-    <div class="profile-image"></div>
+    <ProfileImage :image="user.profile_image" :username="user.nickname" />
   </div>
 </template>
 
 <script>
-export default {};
+import ProfileImage from "@/components/user/ProfileImage.vue";
+
+export default {
+  props: {
+    user: Object,
+  },
+  components: {
+    ProfileImage,
+  },
+};
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.greeting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .text {
+    font-size: $font-lg;
+    .username {
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+</style>

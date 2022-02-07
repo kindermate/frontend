@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <Greeting />
+    <Greeting :user="userInfo" />
     <div class="mission"></div>
     <div class="event"></div>
     <div class="result"></div>
@@ -15,14 +15,19 @@ import Greeting from "@/components/home/Greeting.vue";
 
 export default {
   name: "Home",
+  data() {
+    return {
+      userInfo: null,
+    };
+  },
   components: {
     Greeting,
   },
   methods: {
     async fetchUserInfo() {
       try {
-        const data = await getUserInfo();
-        console.log(data);
+        const { data } = await getUserInfo();
+        this.userInfo = data;
       } catch (err) {
         console.log(err);
       }
@@ -37,6 +42,6 @@ export default {
 <style lang="scss" scoped>
 .home {
   background-color: $grey-light-x;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 </style>

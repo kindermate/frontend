@@ -1,8 +1,5 @@
+import axios from "axios";
+
 export const getUserInfo = () => {
-  const response = {
-    username: "user",
-    nickname: "아이좋아",
-    email: "user@kindermate.com",
-  };
-  return response;
+  return axios.get("/json/userInfo.json");
 };
