@@ -1,6 +1,6 @@
 <template>
   <header class="app-bar">
-    <router-link :to="$router.back()" class="back">뒤로가기</router-link>
+    <a @click="$router.back()" class="back">뒤로가기</a>
     <div class="page-title"></div>
   </header>
 </template>

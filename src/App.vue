@@ -1,14 +1,17 @@
 <template>
   <div id="app">
+    <AppBar />
     <router-view />
     <BottomNavBar />
   </div>
 </template>
 
 <script>
+import AppBar from "@/components/common/AppBar.vue";
 import BottomNavBar from "@/components/common/BottomNavBar.vue";
 export default {
   components: {
+    AppBar,
     BottomNavBar,
   },
 };
