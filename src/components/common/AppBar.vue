@@ -24,7 +24,9 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
   background-color: inherit;
   nav {
     position: absolute;
@@ -38,20 +40,22 @@ header {
       width: 60px;
       height: 60px;
       justify-content: center;
-      align-items: center;
+      padding: 15px;
+      // align-items: center;
       cursor: pointer;
       z-index: 2;
 
       img {
         display: block;
-        width: 30px;
-        height: 30px;
+        // width: 30px;
+        // height: 30px;
+        pointer-events: none;
       }
     }
   }
 
   .page-title {
-    font-weight: $font-weight-bold;
+    font-weight: $font-w600;
     line-height: 60px;
     text-align: center;
   }

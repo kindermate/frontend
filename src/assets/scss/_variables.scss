@@ -9,12 +9,21 @@ $orange: #f87761;
 $green: #7bbb96;
 $blue: #6fc9d6;
 
+$primary: $orange;
+
 // font size
+$font-xs: .8rem;
 $font-sm: .9rem;
 $font-md: 1.2rem;
 $font-lg: 1.35rem;
 
 // font weight
-$font-weight-normal: 'normal';
-$font-weight-bold: 600;
-$font-weight-bolder: 800;
+$font-w100: 100;
+$font-w200: 200;
+$font-w300: 300;
+$font-w400: 400;
+$font-w500: 500;
+$font-w600: 600;
+$font-w700: 700;
+$font-w800: 800;
+$font-w900: 900;

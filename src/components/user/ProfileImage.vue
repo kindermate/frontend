@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-image">
+  <div class="profile-image" :style="cssVar">
     <img :src="image" :alt="username" />
   </div>
 </template>
@@ -9,6 +9,17 @@ export default {
   props: {
     image: String,
     username: String,
+    size: {
+      type: String,
+      default: "60px",
+    },
+  },
+  computed: {
+    cssVar() {
+      return {
+        "--size": this.size,
+      };
+    },
   },
 };
 </script>
@@ -17,8 +28,8 @@ export default {
 .profile-image {
   img {
     display: block;
-    width: 60px;
-    height: 60px;
+    width: var(--size);
+    height: var(--size);
     object-fit: cover;
     border-radius: 50%;
   }

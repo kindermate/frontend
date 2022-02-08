@@ -1,7 +1,7 @@
 <template>
   <section class="home">
     <Greeting :user="userInfo" />
-    <div class="mission"></div>
+    <Mission :mission="recentMission" />
     <div class="event"></div>
     <div class="result"></div>
     <div class="psy-test"></div>
@@ -10,18 +10,21 @@
 </template>
 
 <script>
-import { getUserInfo } from "@/api";
+import { getUserInfo, getRecentMission } from "@/api";
 import Greeting from "@/components/home/Greeting.vue";
+import Mission from "@/components/home/Mission.vue";
 
 export default {
   name: "Home",
   data() {
     return {
       userInfo: null,
+      recentMission: null,
     };
   },
   components: {
     Greeting,
+    Mission,
   },
   methods: {
     async fetchUserInfo() {
@@ -32,9 +35,18 @@ export default {
         console.log(err);
       }
     },
+    async fetchRecentMission() {
+      try {
+        const { data } = await getRecentMission();
+        this.recentMission = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   created() {
     this.fetchUserInfo();
+    this.fetchRecentMission();
   },
 };
 </script>
@@ -42,6 +54,5 @@ export default {
 <style lang="scss" scoped>
 .home {
   background-color: $grey-light-x;
-  padding: 1.5rem;
 }
 </style>

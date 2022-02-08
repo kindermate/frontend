@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <AppBar />
-    <router-view />
+    <main>
+      <transition name="page" mode="out-in">
+        <router-view :key="$route.path" />
+      </transition>
+    </main>
     <BottomNavBar />
   </div>
 </template>
@@ -16,3 +20,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-leave-to {
+  opacity: 0;
+}
+.page-enter-active {
+  transition: opacity 0.35s ease-out, transform 0.5s ease;
+}
+</style>
