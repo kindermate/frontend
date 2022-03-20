@@ -3,7 +3,7 @@
     <div class="image is-square">
       <img src="@/assets/img/theo-crossroad.png" alt="Page not found." />
     </div>
-    <h1>{{ $t("404.message") }}</h1>
+    <h1>{{ $t('404.message') }}</h1>
   </section>
 </template>
 

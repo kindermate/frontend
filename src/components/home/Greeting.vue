@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ProfileImage from "@/components/user/ProfileImage.vue";
+import ProfileImage from '@/components/user/ProfileImage.vue';
 
 export default {
   props: {
@@ -30,7 +30,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin: 1rem 0 3rem;
 
   .text {
     font-size: $font-lg;

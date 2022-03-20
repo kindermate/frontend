@@ -1,34 +1,34 @@
 <template>
   <nav>
-    <router-link to="/">
+    <router-link to="/home">
       <div class="icon">
         <img src="@/assets/img/home.svg" />
       </div>
-      <span>{{ $t("menu.home") }}</span>
+      <span>{{ $t('menu.home') }}</span>
     </router-link>
     <router-link to="/test">
       <div class="icon">
         <img src="@/assets/img/puzzle.svg" />
       </div>
-      <span>{{ $t("menu.test") }}</span>
+      <span>{{ $t('menu.test') }}</span>
     </router-link>
     <router-link to="/mission">
       <div class="icon">
         <img src="@/assets/img/check.svg" />
       </div>
-      <span>{{ $t("menu.mission") }}</span>
+      <span>{{ $t('menu.mission') }}</span>
     </router-link>
     <router-link to="/result">
       <div class="icon">
         <img src="@/assets/img/graph.svg" />
       </div>
-      <span>{{ $t("menu.result") }}</span>
+      <span>{{ $t('menu.result') }}</span>
     </router-link>
     <router-link to="/psycheck">
       <div class="icon">
         <img src="@/assets/img/face.svg" />
       </div>
-      <span>{{ $t("menu.psycheck") }}</span>
+      <span>{{ $t('menu.psycheck') }}</span>
     </router-link>
   </nav>
 </template>
@@ -64,6 +64,7 @@ nav {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    opacity: 0.4;
     .icon {
       display: flex;
       justify-content: center;
@@ -76,6 +77,9 @@ nav {
     }
     span {
       line-height: 1;
+    }
+    &.is-active {
+      opacity: 1;
     }
   }
 }

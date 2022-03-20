@@ -1,67 +1,248 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import i18n from "@/i18n";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import i18n from '@/i18n';
+import $store from '@/store';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    meta: {
-      pageTitle: i18n.t("home.pageTitle"),
-    },
-    component: () => import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
+    path: '/',
+    name: 'Root',
+    redirect: '/home',
   },
   {
-    path: "/test",
-    name: "Test",
+    path: '/home',
+    name: 'Home',
     meta: {
-      pageTitle: i18n.t("test.pageTitle"),
+      auth: true,
+      pageTitle: i18n.t('home.pageTitle'),
+      isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "test" */ "@/views/Test.vue"),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
   },
   {
-    path: "/mission",
-    name: "Mission",
+    path: '/agreement',
+    name: 'Agreement',
     meta: {
-      pageTitle: i18n.t("mission.pageTitle"),
+      pageTitle: i18n.t('agreement.pageTitle'),
+      isBottomNav: false,
+      bigButton: {
+        next: '/join',
+      },
     },
-    component: () =>
-      import(/* webpackChunkName: "mission" */ "@/views/Mission.vue"),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/join/Agreement.vue'),
   },
   {
-    path: "/result",
-    name: "Result",
+    path: '/join',
+    name: 'Join',
     meta: {
-      pageTitle: i18n.t("result.pageTitle"),
+      pageTitle: i18n.t('join.pageTitle'),
+      isBottomNav: false,
     },
-    component: () =>
-      import(/* webpackChunkName: "result" */ "@/views/Result.vue"),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/join/Join.vue'),
   },
   {
-    path: "/psycheck",
-    name: "Psy Check",
+    path: '/join/complete',
+    name: 'Join Complete',
     meta: {
-      pageTitle: i18n.t("psycheck.pageTitle"),
+      pageTitle: i18n.t('joinComplete.pageTitle'),
+      isBottomNav: false,
     },
-    component: () =>
-      import(/* webpackChunkName: "psycheck" */ "@/views/PsyCheck.vue"),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/join/JoinComplete.vue'),
   },
   {
-    path: "*",
-    name: "Page Not Found",
+    path: '/login',
+    name: 'Login',
     meta: {
-      pageTitle: i18n.t("404.pageTitle"),
+      pageTitle: i18n.t('login.pageTitle'),
+      isBottomNav: false,
     },
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404.vue"),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Login.vue'),
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('test.pageTitle'),
+      isBottomNav: true,
+      bgColor: '#fff',
+    },
+    component: () => import(/* webpackChunkName: "test" */ '@/views/test/About.vue'),
+  },
+  {
+    path: '/test/select',
+    name: 'Select Member',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('test.selectMember.pageTitle'),
+      isBottomNav: true,
+      bgColor: '#fff',
+    },
+    component: () => import(/* webpackChunkName: "test" */ '@/views/test/SelectMember.vue'),
+  },
+  {
+    path: '/test/cover',
+    name: 'Test Cover',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('test.cover.pageTitle'),
+      isBottomNav: false,
+      bgColor: '#fff',
+    },
+    component: () => import(/* webpackChunkName: "test" */ '@/views/test/Cover.vue'),
+  },
+  {
+    path: '/test/question',
+    name: 'Test Question',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('test.question.pageTitle'),
+      isBottomNav: false,
+      noPadding: true,
+    },
+    component: () => import(/* webpackChunkName: "test" */ '@/views/test/Question.vue'),
+  },
+  {
+    path: '/test/complete',
+    name: 'Test Complete',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('test.complete.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "test" */ '@/views/test/Complete.vue'),
+  },
+  {
+    path: '/mission',
+    name: 'Mission',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('mission.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "mission" */ '@/views/mission/Mission.vue'),
+  },
+  {
+    path: '/mission/detail',
+    name: 'Mission Detail',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('mission.pageTitle'),
+      isBottomNav: true,
+      bgColor: '#6FC9D6',
+      noPadding: true,
+    },
+    component: () => import(/* webpackChunkName: "mission" */ '@/views/mission/MissionDetail.vue'),
+  },
+  {
+    path: '/mission/next',
+    name: 'Mission Next',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('mission.pageTitle'),
+      isBottomNav: true,
+      bgColor: '#6FC9D6',
+      noPadding: true,
+    },
+    component: () => import(/* webpackChunkName: "mission" */ '@/views/mission/MissionNext.vue'),
+  },
+  {
+    path: '/result',
+    name: 'Result',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('result.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "result" */ '@/views/Result.vue'),
+  },
+  {
+    path: '/result/detail',
+    name: 'Result Detail',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('result.pageTitle'),
+      bgColor: '#F87761',
+      isBottomNav: true,
+      noPadding: true,
+    },
+    component: () => import(/* webpackChunkName: "result" */ '@/views/result/ResultDetail.vue'),
+  },
+  {
+    path: '/psycheck',
+    name: 'Psy Check',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('psycheck.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/PsyCheck.vue'),
+  },
+  {
+    path: '/sidebar',
+    name: 'Sidebar',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('sidebar.pageTitle'),
+      bgColor: '#fff',
+      isBottomNav: true,
+      noPadding: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/Sidebar.vue'),
+  },
+  {
+    path: '/notice/:id',
+    name: 'Notice Detail',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('notice.pageTitle'),
+      bgColor: '#fff',
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/post/NoticeDetail.vue'),
+  },
+  {
+    path: '*',
+    name: 'Page Not Found',
+    meta: {
+      pageTitle: i18n.t('404.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
   },
 ];
 
+const scrollBehavior = (to, from, savedPosition) => {
+  if (savedPosition) {
+    return savedPosition;
+  }
+  return { x: 0, y: 0 };
+};
+
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
+  linkActiveClass: 'is-active',
   routes,
+  scrollBehavior,
+});
+
+router.beforeEach((to, from, next) => {
+  // 권한이 필요한 페이지
+  if (to.meta.auth) {
+    if (!$store.state.accessToken) {
+      next('/login');
+    }
+  }
+  // bottom navigation 출력 여부
+  if (to.meta.isBottomNav === false) {
+    $store.commit('SET_BOTTOM_NAV', false);
+  } else {
+    $store.commit('SET_BOTTOM_NAV', true);
+  }
+  next();
 });
 
 export default router;

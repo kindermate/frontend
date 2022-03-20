@@ -4,7 +4,7 @@
       <a @click="$router.back()" class="left">
         <img src="@/assets/img/left-arrow.svg" alt="left" />
       </a>
-      <router-link to="/sidemenu" class="right">
+      <router-link to="/sidebar" class="right">
         <img src="@/assets/img/menu.svg" alt="menu" />
       </router-link>
     </nav>
@@ -19,6 +19,20 @@ export default {
       return this.$route.meta.pageTitle;
     },
   },
+  methods: {
+    handleScroll() {
+      const position = window.scrollY;
+      const header = document.querySelector('header');
+      if (position > 10) {
+        header.classList.add('is-white');
+      } else {
+        header.classList.remove('is-white');
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
 };
 </script>
 
@@ -28,6 +42,12 @@ header {
   top: 0;
   left: 0;
   background-color: inherit;
+  transition: all 0.3s ease;
+  z-index: 10;
+  &.is-white {
+    background-color: #fff;
+    box-shadow: 0 5px 5px rgba($color: #000000, $alpha: 0.03);
+  }
   nav {
     position: absolute;
     width: 100%;

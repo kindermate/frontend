@@ -15,6 +15,15 @@
         "period": 2,
         "progress": 50
       }
+    },
+    {
+      "subject": "기질검사",
+      "section": "정확성",
+      "task": {
+        "name": "기질검사의 시작",
+        "period": 2,
+        "progress": 85
+      }
     }
   ]
 }
