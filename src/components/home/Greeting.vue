@@ -4,23 +4,26 @@
       <span class="username">{{ user.nickname }}</span>
       <span class="greetings" v-html="$t('home.greeting')"></span>
     </div>
-    <ProfileImage
+    <div class="image">
+      <img src="@/assets/img/theo-contract.svg" />
+    </div>
+    <!-- <ProfileImage
       @click.native="$router.push('/users/profile')"
       :image="user.profile_image"
       :username="user.nickname"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
-import ProfileImage from '@/components/user/ProfileImage.vue';
+// import ProfileImage from '@/components/user/ProfileImage.vue';
 
 export default {
   props: {
     user: Object,
   },
   components: {
-    ProfileImage,
+    // ProfileImage,
   },
 };
 </script>
@@ -37,6 +40,10 @@ export default {
     .username {
       font-weight: $font-w600;
     }
+  }
+
+  .image {
+    width: 70px;
   }
 }
 </style>

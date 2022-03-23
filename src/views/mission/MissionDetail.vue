@@ -64,7 +64,7 @@
               :star-size="50"
               inactive-color="#dfe2e0"
               active-color="#f87761"
-              @rating-selected="saveRating"
+              @rating-selected="sendRating"
             />
           </div>
           <div class="comment">
@@ -95,7 +95,7 @@
 <script>
 import moment from 'moment';
 import { mapState } from 'vuex';
-import { getMemo, createMemo } from '@/api';
+import { getMemo, createMemo, getRating, sendRating } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 import ModalBlank from '@/components/common/ModalBlank.vue';
 import StarRating from 'vue-star-rating';
@@ -126,9 +126,6 @@ export default {
     },
   },
   methods: {
-    saveRating() {
-      console.log(this.rating);
-    },
     getPercentage(value) {
       return value * 20;
     },
@@ -164,9 +161,42 @@ export default {
     submitMission() {
       this.$router.push('/mission/next');
     },
+    async fetchRating() {
+      try {
+        const payload = {
+          mission: this.mission.id,
+          week: this.mission.week,
+          code: this.mission.code,
+        };
+        const { data } = await getRating(payload);
+        if (data.success) {
+          this.rating = data.data.rating;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async sendRating() {
+      try {
+        const payload = {
+          mission: this.mission.id,
+          week: this.mission.week,
+          code: this.mission.code,
+          rating: this.rating,
+        };
+        const { data } = await sendRating(payload);
+        if (data.success) {
+          this.$store.commit('SET_RATING', this.rating);
+        }
+        // if(data)
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   created() {
     this.fetchMemo();
+    this.fetchRating();
   },
 };
 </script>

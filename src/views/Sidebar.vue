@@ -51,11 +51,11 @@
         <span>{{ $t('extraMenu.faq') }}</span>
         <img src="@/assets/img/icon_more.svg" />
       </router-link> -->
-      <router-link to="/">
+      <router-link to="/usage">
         <span>{{ $t('extraMenu.usage') }}</span>
         <img src="@/assets/img/icon_more.svg" />
       </router-link>
-      <router-link to="/">
+      <router-link to="/privacy">
         <span>{{ $t('extraMenu.privacy') }}</span>
         <img src="@/assets/img/icon_more.svg" />
       </router-link>

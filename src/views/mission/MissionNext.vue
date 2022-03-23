@@ -16,7 +16,9 @@
       <div class="process">
         <div class="bar" ref="bar"></div>
       </div>
-      <div class="week">1주차 미션 달성률 <b>80%</b></div>
+      <div class="week">
+        1주차 미션 달성률 <b>{{ getPercentage() }}</b>
+      </div>
       <div class="comment">당장은 아닐지 몰라도 언젠가 노력한 만큼의 보상을 꼭 받으실 것입니다.</div>
       <div class="next">
         다음 주차 미션은<br /><b>{{
@@ -48,9 +50,15 @@ export default {
       member: state => state.mission.currentMember,
     }),
   },
+  methods: {
+    getPercentage() {
+      console.log(this.mission.rating);
+      return this.mission.rating * 20;
+    },
+  },
   mounted() {
     setTimeout(() => {
-      this.$refs.bar.style.width = '80%';
+      this.$refs.bar.style.width = this.mission.rating * 20 + '%';
     }, 300);
   },
 };

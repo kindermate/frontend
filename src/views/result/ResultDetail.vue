@@ -5,8 +5,14 @@
     </div>
     <div class="result-content">
       <div class="date">
-        {{ result.createdAt | moment('YYYY년 M월 D일 검사') }}
+        <div class="image">
+          <img src="@/assets/img/calendar.svg" />
+        </div>
+        <span>
+          {{ result.createdAt | moment('YYYY년 M월 D일 검사') }}
+        </span>
       </div>
+      <!-- ctt -->
       <div class="part">
         <h2>{{ $t('result.ctt.name') }}</h2>
         <p>{{ $t('result.ctt.description') }}</p>
@@ -30,10 +36,12 @@
         <div v-for="(part, index) in $t('result.ctt.parts')" :key="index" class="part-item">
           <h4>{{ part.name }}</h4>
           <p>{{ part.description }}</p>
+          <hr />
           <div class="rating">
             <div class="score">
               {{ results[0].part[index].score.TW }}
             </div>
+            <ScoreBar :score="results[0].part[index].score.TW" :grade="results[0].part[index].score.grade" />
             <div class="grade">
               {{ transGrade(results[0].part[index].score.grade) }}
             </div>
@@ -42,17 +50,26 @@
         </div>
       </div>
       <hr />
+      <!-- mat -->
       <div class="part">
         <h2>{{ $t('result.mat.name') }}</h2>
         <p>{{ $t('result.mat.description') }}</p>
         <ul class="strongs">
           <li>
             <b>강한적성</b>
-            {{ getStrongs(results[1].extra.strongs) }}
+            <div v-if="results[1].extra.strongs.length > 0" class="element">
+              <span v-for="(item, index) in getStrongs(results[1].extra.strongs)" :key="index">{{
+                item
+              }}</span>
+            </div>
+            <div v-else>없음</div>
           </li>
           <li>
             <b>약한적성</b>
-            <span v-for="(item, index) in getStrongs(results[1].extra.weaks)" :key="index">{{ item }}</span>
+            <div v-if="results[1].extra.weaks.length > 0" class="element">
+              <span v-for="(item, index) in getStrongs(results[1].extra.weaks)" :key="index">{{ item }}</span>
+            </div>
+            <div v-else>없음</div>
           </li>
         </ul>
         <!-- chart -->
@@ -67,10 +84,12 @@
         <div v-for="(part, index) in $t('result.mat.parts')" :key="index" class="part-item">
           <h4>{{ part.name }}</h4>
           <p>{{ part.description }}</p>
+          <hr />
           <div class="rating">
             <div class="score">
               {{ results[1].part[index].score.TW }}
             </div>
+            <ScoreBar :score="results[1].part[index].score.TW" :grade="results[1].part[index].score.grade" />
             <div class="grade">
               {{ transGrade(results[1].part[index].score.grade) }}
             </div>
@@ -79,6 +98,7 @@
         </div>
       </div>
       <hr />
+      <!-- pbt -->
       <div class="part">
         <h2>{{ $t('result.pbt.name') }}</h2>
         <p>{{ $t('result.pbt.description') }}</p>
@@ -103,10 +123,12 @@
         <div v-for="(part, index) in $t('result.pbt.parts')" :key="index" class="part-item">
           <h4>{{ part.name }}</h4>
           <p>{{ part.description }}</p>
+          <hr />
           <div class="rating">
             <div class="score">
               {{ results[2].part[index].score.TW }}
             </div>
+            <ScoreBar :score="results[2].part[index].score.TW" :grade="results[2].part[index].score.grade" />
             <div class="grade">
               {{ transGrade(results[2].part[index].score.grade) }}
             </div>
@@ -123,6 +145,7 @@ import { mapState } from 'vuex';
 import { getCommentary } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 import BarChart from '@/components/result/BarChart.vue';
+import ScoreBar from '@/components/result/ScoreBar.vue';
 
 export default {
   data() {
@@ -151,6 +174,7 @@ export default {
   components: {
     ProfileListBlock,
     BarChart,
+    ScoreBar,
   },
   computed: {
     ...mapState({
@@ -360,10 +384,18 @@ export default {
       background-color: $black;
     }
     .date {
-      text-align: right;
-      font-weight: $font-w500;
-      margin-bottom: 1rem;
-      font-size: $font-sm;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .image {
+        width: 20px;
+        margin-right: 8px;
+      }
+      span {
+        text-align: right;
+        font-weight: $font-w500;
+        font-size: $font-sm;
+      }
     }
     .part {
       h2 {
@@ -372,7 +404,6 @@ export default {
         margin-bottom: 1rem;
       }
       p {
-        color: $grey;
         margin-bottom: 2rem;
       }
       .strongs {
@@ -389,8 +420,14 @@ export default {
             font-size: $font-sm;
             margin-bottom: 5px;
           }
-          span {
-            margin-right: 10px;
+          .element {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            span {
+              margin-right: 10px;
+              word-break: keep-all;
+            }
           }
         }
       }
@@ -427,6 +464,7 @@ export default {
         }
         p {
           margin-bottom: 0;
+          color: $grey;
         }
       }
       .chart {
@@ -443,16 +481,30 @@ export default {
         margin-bottom: 2rem;
         padding: 1.5rem;
         border-radius: 10px;
+        hr {
+          background-color: $grey-light-x;
+          height: 1px;
+          margin: 1rem 0;
+        }
         h4 {
-          font-size: $font-md;
+          font-size: $font-lg;
           font-weight: $font-w600;
           margin-bottom: 0.5rem;
+        }
+        p {
+          font-size: $font-sm;
+          color: $grey;
         }
         .rating {
           text-align: center;
           margin-bottom: 1rem;
+          margin-top: 2rem;
           .score {
-            font-size: $font-xxl;
+            font-size: 3rem;
+            font-weight: $font-w800;
+            line-height: 1;
+          }
+          .grade {
             font-weight: $font-w800;
           }
         }

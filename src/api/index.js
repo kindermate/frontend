@@ -79,9 +79,17 @@ export const createMemo = payload => {
   return instance.post('/memos', payload);
 };
 
+export const getRating = payload => {
+  return instance.get(`/ratings?mission=${payload.mission}&week=${payload.week}&code=${payload.code}`);
+};
+
+export const sendRating = payload => {
+  return instance.post('/ratings', payload);
+};
+
 // post
-export const getPostAll = () => {
-  return instance.get('/posts');
+export const getPostAll = payload => {
+  return instance.get(`/posts?${payload}`);
 };
 
 export const getPost = id => {

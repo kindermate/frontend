@@ -6,14 +6,14 @@
       <li v-for="(member, index) in members" :key="member.id" @click="viewDetail(index)">
         <div class="head">
           <ProfileListBlock :member="member" />
-          <div class="week">
+          <div v-if="member.missionSet" class="week">
             <CircleIcon>
               <img src="@/assets/img/time.svg" />
             </CircleIcon>
             <span>{{ member.missionSet.week }}주차</span>
           </div>
         </div>
-        <div class="mission-container">
+        <div v-if="member.missionSet" class="mission-container">
           <div class="mission">
             <div class="head">
               {{ $t(`mission.code.${member.missionSet.code}`) }} - {{ member.missionSet.name }}
@@ -68,26 +68,28 @@ export default {
     },
     makeResultGrades() {
       this.members.map((item, index) => {
-        const resultSet = {
-          CTT: [],
-          MAT: [],
-          PBT: [],
-        };
-        item.missions[0].result.results.map(result => {
-          result.part.map(part => {
-            if (result.test === 'CTT') {
-              resultSet.CTT.push(part.score.grade);
-            }
-            if (result.test === 'MAT') {
-              resultSet.MAT.push(part.score.grade);
-            }
-            if (result.test === 'PBT') {
-              resultSet.PBT.push(part.score.grade);
-            }
+        if (item.missions.length > 0) {
+          const resultSet = {
+            CTT: [],
+            MAT: [],
+            PBT: [],
+          };
+          item.missions[0].result.results.map(result => {
+            result.part.map(part => {
+              if (result.test === 'CTT') {
+                resultSet.CTT.push(part.score.grade);
+              }
+              if (result.test === 'MAT') {
+                resultSet.MAT.push(part.score.grade);
+              }
+              if (result.test === 'PBT') {
+                resultSet.PBT.push(part.score.grade);
+              }
+            });
           });
-        });
-        // console.log(resultSet);
-        this.members[index]['resultSet'] = resultSet;
+          // console.log(resultSet);
+          this.members[index]['resultSet'] = resultSet;
+        }
       });
     },
     getGrade(week, index) {
@@ -98,20 +100,22 @@ export default {
     async getMissionInfo() {
       if (this.members.length > 1) {
         this.members.map(async (member, index) => {
-          try {
-            const week = member.missions[0].week;
-            const grade = this.getGrade(week, index);
-            const {
-              data: { data },
-            } = await getMissionInfo({ week: week, grade: grade });
-            this.members[index]['missionSet'] = data;
-            console.log(index);
-            if (this.members.length === index + 1) {
-              console.log(this.members[1].missionSet);
-              this.isLoaded = true;
+          if (member.missions.length > 0) {
+            try {
+              const week = member.missions[0].week;
+              const grade = this.getGrade(week, index);
+              const {
+                data: { data },
+              } = await getMissionInfo({ week: week, grade: grade });
+              this.members[index]['missionSet'] = data;
+              console.log(index);
+              if (this.members.length === index + 1) {
+                console.log(this.members[1].missionSet);
+                this.isLoaded = true;
+              }
+            } catch (error) {
+              console.log(error);
             }
-          } catch (error) {
-            console.log(error);
           }
         });
       } else {
@@ -122,13 +126,17 @@ export default {
             data: { data },
           } = await getMissionInfo({ week: week, grade: grade });
           this.members[0]['missionSet'] = data;
-          this.isLoaded = true;
+          // this.isLoaded = true;
         } catch (error) {
           console.log(error);
         }
       }
     },
     viewDetail(index) {
+      if (!this.members[index].missionSet) {
+        alert(this.$t('mission.alert.noMission'));
+        return;
+      }
       const payload = {
         member: {
           name: this.members[index].name,
@@ -172,7 +180,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 0.5rem;
+        // padding-top: 0.5rem;
         .week {
           display: flex;
           align-items: center;

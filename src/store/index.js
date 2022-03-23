@@ -71,6 +71,9 @@ export default new Vuex.Store({
       state.mission.currentMember = payload.member;
       state.mission.currentMission = payload.mission;
     },
+    SET_RATING(state, payload) {
+      state.mission.currentMission.rating = payload;
+    },
     RESET_MEMBER(state) {
       state.member = {};
     },

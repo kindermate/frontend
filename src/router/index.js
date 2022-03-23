@@ -193,6 +193,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "psycheck" */ '@/views/Sidebar.vue'),
   },
   {
+    path: '/notice',
+    name: 'Notice List',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('notice.pageTitle'),
+      bgColor: '#fff',
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/post/NoticeList.vue'),
+  },
+  {
     path: '/notice/:id',
     name: 'Notice Detail',
     meta: {
@@ -202,6 +213,28 @@ const routes = [
       isBottomNav: true,
     },
     component: () => import(/* webpackChunkName: "psycheck" */ '@/views/post/NoticeDetail.vue'),
+  },
+  {
+    path: '/usage',
+    name: 'Usage',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('extraMenu.usage'),
+      bgColor: '#fff',
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/Usage.vue'),
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('extraMenu.privacy'),
+      bgColor: '#fff',
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/Privacy.vue'),
   },
   {
     path: '*',

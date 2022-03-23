@@ -24,7 +24,7 @@ export default {
   methods: {
     async fetchPost() {
       try {
-        const { data } = await getPostAll();
+        const { data } = await getPostAll('isNotice=true');
         console.log(data);
         if (data.success) {
           this.posts = data.data;

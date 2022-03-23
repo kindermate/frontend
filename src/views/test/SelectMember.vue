@@ -15,7 +15,8 @@
           <span>{{ member.name }}</span>
         </div>
         <div class="info">
-          {{ getGender(member.gender) }} / {{ member.birth | moment('YYYY년 MM월 DD일생') }}
+          {{ getGender(member.gender) }} / {{ member.birth | moment('YYYY년 MM월 DD일생') }} /
+          {{ getMonths(member.birth) }}
         </div>
       </li>
     </ul>
@@ -117,6 +118,10 @@ export default {
       }
       return result;
     },
+    getMonths(birth) {
+      const today = moment(new Date());
+      return today.diff(moment(birth), 'months');
+    },
     async fetchMemberAll() {
       try {
         const { data } = await getMemberAll(this.$store.state.currentUser.id);
@@ -145,6 +150,9 @@ export default {
         const diff = today.diff(memberBirth, 'months');
         console.log(diff);
         if (diff > 120) {
+          alert(this.$t('alert.addMember.limit'));
+          return;
+        } else if (diff < 24) {
           alert(this.$t('alert.addMember.limit'));
           return;
         }
