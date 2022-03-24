@@ -144,6 +144,9 @@
         <h2>종합가이드</h2>
         <div class="content" v-html="guides.PBT.content"></div>
       </div>
+      <div class="buttons mt-6">
+        <router-link to="/mission" class="button is-primary is-fullwidth">미션 바로가기</router-link>
+      </div>
     </div>
   </section>
 </template>

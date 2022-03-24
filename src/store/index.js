@@ -17,6 +17,7 @@ export default new Vuex.Store({
     locale: null,
     bottomNav: true,
     member: {},
+    lastestSelectedMemberId: '',
     test: {
       current: '',
       question: '',
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     },
     SET_MEMBER(state, payload) {
       state.member = payload;
+    },
+    SET_LASTESTMEMBER(state, payload) {
+      state.lastestSelectedMemberId = payload;
     },
     SET_CURRENT_TEST(state, payload) {
       state.test.current = payload;

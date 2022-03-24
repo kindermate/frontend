@@ -320,6 +320,10 @@ export default {
           &:nth-child(5n) {
             background-color: #efeaf2;
           }
+          .content {
+            overflow-y: auto;
+            word-break: break-all;
+          }
           .date {
             margin-top: auto;
             font-size: 11px;

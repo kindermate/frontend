@@ -32,7 +32,7 @@
     "gender": "성별",
     "password": "비밀번호",
     "passwordConfirm": "비밀번호 확인",
-    "recommander": "추천인 아이디",
+    "recommander": "추천인 코드",
     "placeholder": {
       "username": "아이디를 입력하세요",
       "nickname": "닉네임을 입력하세요",
@@ -81,6 +81,9 @@
       "birth": "생년월일이 없습니다.",
       "gender": "성별이 없습니다.",
       "limit": "만 2세(24개월) ~ 만 8세(120개월) 까지만 가능합니다."
+    },
+    "test": {
+      "notComplete": "답변이 모두 완료되지 않았습니다."
     }
   },
   "agreement": {
@@ -150,7 +153,8 @@
     },
     "question": {
       "pageTitle": "검사 진행",
-      "nextButton": "다음 검사"
+      "nextButton": "다음 검사",
+      "completeButton": "검사 완료"
     },
     "answer": {
       "five": ["그렇지 않다", "그렇지 않은 편이다", "보통", "그런 편이다", "그렇다"],

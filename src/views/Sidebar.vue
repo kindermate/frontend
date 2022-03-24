@@ -65,7 +65,7 @@
       </a>
     </nav>
     <div class="info">
-      <span>© Time Education</span>
+      <span>© Time Education C&P</span>
       <span>{{ version }}</span>
     </div>
   </section>

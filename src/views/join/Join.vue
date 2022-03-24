@@ -79,7 +79,7 @@
           />
         </div>
       </div>
-      <!-- 추천인 -->
+      <!-- 추천인 코드 -->
       <div class="field">
         <label class="label">{{ $t('join.recommander') }}</label>
         <div class="control">

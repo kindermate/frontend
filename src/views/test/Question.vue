@@ -8,7 +8,7 @@
 
     <!-- question list -->
     <div class="question-list">
-      <div v-for="q in question" :key="q._id" class="item">
+      <div ref="question" v-for="q in question" :key="q._id" class="item">
         <div class="order">{{ q.order }}</div>
         <div class="question-text">{{ q.question }}</div>
         <div v-if="code === 'CTT' || code === 'MAT'" class="answer-list">
@@ -35,8 +35,15 @@
     </div>
 
     <!-- button -->
-    <a @click="checkProcess" class="button is-fullwidth is-primary mt-5" :disabled="!isFinish">{{
-      $t('test.question.nextButton')
+    <a
+      v-if="code !== 'PBT'"
+      @click="checkProcess"
+      class="button is-fullwidth is-primary mt-5"
+      :disabled="!isFinish"
+      >{{ $t('test.question.nextButton') }}</a
+    >
+    <a v-else @click="checkProcess" class="button is-fullwidth is-primary mt-5" :disabled="!isFinish">{{
+      $t('test.question.completeButton')
     }}</a>
   </section>
 </template>
@@ -72,10 +79,22 @@ export default {
     },
     async checkProcess() {
       if (this.code === 'CTT') {
+        if (Object.keys(this.$store.state.answer.CTT).length !== 25) {
+          alert(this.$t('alert.test.notComplete'));
+          return;
+        }
         this.$store.commit('SET_CURRENT_TEST', 'MAT');
       } else if (this.code === 'MAT') {
+        if (Object.keys(this.$store.state.answer.MAT).length !== 35) {
+          alert(this.$t('alert.test.notComplete'));
+          return;
+        }
         this.$store.commit('SET_CURRENT_TEST', 'PBT');
       } else if (this.code === 'PBT') {
+        if (Object.keys(this.$store.state.answer.PBT).length !== 20) {
+          alert(this.$t('alert.test.notComplete'));
+          return;
+        }
         // save answers
         try {
           const payload = {
@@ -105,6 +124,21 @@ export default {
       }
       return result;
     },
+    checkAnswers() {
+      if (Object.keys(this.answer[this.code]).length > 0) {
+        console.log('check');
+        this.fillAnswers();
+      }
+    },
+    fillAnswers() {
+      for (const [key, value] of Object.entries(this.answer[this.code])) {
+        console.log(key, value);
+        this.$refs.question[key - 1].querySelectorAll('.answer')[value - 1].click();
+      }
+    },
+  },
+  mounted() {
+    this.checkAnswers();
   },
 };
 </script>

@@ -97,41 +97,25 @@ export default {
       if (week === 1) return this.members[index].resultSet['CTT'][0];
       if (week === 2) return this.members[index].resultSet['CTT'][1];
     },
-    async getMissionInfo() {
-      if (this.members.length > 1) {
-        this.members.map(async (member, index) => {
-          if (member.missions.length > 0) {
-            try {
-              const week = member.missions[0].week;
-              const grade = this.getGrade(week, index);
-              const {
-                data: { data },
-              } = await getMissionInfo({ week: week, grade: grade });
-              console.log(data);
-              this.members[index]['missionSet'] = data;
-              // console.log(index);
-              if (this.members.length === index + 1) {
-                console.log(this.members[1].missionSet);
-                this.isLoaded = true;
-              }
-            } catch (error) {
-              console.log(error);
-            }
-          }
-        });
-      } else {
+    async fetchMissionInfo() {
+      let count = 0;
+      this.members.forEach(async (member, index) => {
+        const week = member.missions[0].week;
+        const grade = this.getGrade(week, index);
         try {
-          const week = this.members[0].missions[0].week;
-          const grade = this.getGrade(week, 0);
           const {
             data: { data },
           } = await getMissionInfo({ week: week, grade: grade });
-          this.members[0]['missionSet'] = data;
-          // this.isLoaded = true;
+          this.members[index]['missionSet'] = data;
         } catch (error) {
           console.log(error);
+        } finally {
+          count = count + 1;
+          if (count === this.members.length) {
+            this.isLoaded = true;
+          }
         }
-      }
+      });
     },
     viewDetail(index) {
       if (!this.members[index].missionSet) {
@@ -158,7 +142,7 @@ export default {
   async created() {
     await this.fetchMembers();
     this.makeResultGrades();
-    await this.getMissionInfo();
+    this.fetchMissionInfo();
   },
 };
 </script>

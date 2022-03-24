@@ -15,8 +15,8 @@
           <span>{{ member.name }}</span>
         </div>
         <div class="info">
-          {{ getGender(member.gender) }} / {{ member.birth | moment('YYYY년 MM월 DD일생') }} /
-          {{ getMonths(member.birth) }}
+          {{ getGender(member.gender) }} / {{ member.birth | moment('YYYY년 MM월 DD일생') }}
+          <!-- {{ getMonths(member.birth) }} -->
         </div>
       </li>
     </ul>
@@ -140,6 +140,7 @@ export default {
       this.members.forEach(member => {
         if (this.selectedMemberId === member._id) {
           this.$store.commit('SET_MEMBER', member);
+          this.$store.commit('SET_LASTESTMEMBER', member._id);
         }
       });
     },
