@@ -171,6 +171,7 @@ export default {
         const { data } = await getRating(payload);
         if (data.success) {
           this.rating = data.data.rating;
+          this.$store.commit('SET_RATING', this.rating);
         }
       } catch (error) {
         console.log(error);

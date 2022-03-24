@@ -95,3 +95,8 @@ export const getPostAll = payload => {
 export const getPost = id => {
   return instance.get(`/posts/${id}`);
 };
+
+// guide
+export const getGuides = payload => {
+  return instance.get(`/guides?CTT=${payload}`);
+};

@@ -6,7 +6,7 @@
         <img src="@/assets/img/banner_1.png" alt="" />
         <dl>
           <dt>킨더메이트를 손에 넣어라!</dt>
-          <dd>2월 1일 ~ 2월 28일 까지</dd>
+          <dd>4월 1일 ~ 4월 15일 까지</dd>
         </dl>
       </router-link>
     </div>

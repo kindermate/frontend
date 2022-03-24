@@ -1,7 +1,7 @@
 <template>
   <section class="home">
     <Greeting :user="userInfo" />
-    <Mission :mission="recentMission" />
+    <Mission />
     <Promotion />
     <Notice />
     <div class="result"></div>

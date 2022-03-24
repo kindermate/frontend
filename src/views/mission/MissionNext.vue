@@ -17,7 +17,7 @@
         <div class="bar" ref="bar"></div>
       </div>
       <div class="week">
-        1주차 미션 달성률 <b>{{ getPercentage() }}</b>
+        1주차 미션 달성률 <b>{{ getPercentage() }}%</b>
       </div>
       <div class="comment">당장은 아닐지 몰라도 언젠가 노력한 만큼의 보상을 꼭 받으실 것입니다.</div>
       <div class="next">

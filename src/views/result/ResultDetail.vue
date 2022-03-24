@@ -49,6 +49,10 @@
           <div class="commentary">{{ commentaries.CTT[index] }}</div>
         </div>
       </div>
+      <div class="guide">
+        <h2>종합가이드</h2>
+        <div class="content" v-html="guides.CTT.content"></div>
+      </div>
       <hr />
       <!-- mat -->
       <div class="part">
@@ -136,13 +140,17 @@
           <div class="commentary">{{ commentaries.PBT[index] }}</div>
         </div>
       </div>
+      <div class="guide">
+        <h2>종합가이드</h2>
+        <div class="content" v-html="guides.PBT.content"></div>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { getCommentary } from '@/api';
+import { getCommentary, getGuides } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 import BarChart from '@/components/result/BarChart.vue';
 import ScoreBar from '@/components/result/ScoreBar.vue';
@@ -151,6 +159,7 @@ export default {
   data() {
     return {
       commentaries: {},
+      guides: {},
       isLoaded: false,
       chartData1: null,
       options: {
@@ -159,7 +168,11 @@ export default {
             {
               ticks: {
                 beginAtZero: true,
+                suggestedMax: 100,
+                min: 0,
               },
+              min: 0,
+              max: 90,
             },
           ],
         },
@@ -307,7 +320,6 @@ export default {
       return this.$t(`result.grade.${value}`);
     },
     getStrongs(items) {
-      console.log(items);
       const array = [];
       if (items.length === 0) {
         return '없음';
@@ -343,7 +355,7 @@ export default {
       }
       return array;
     },
-    async makeQuery() {
+    async makeCommentaries() {
       // CTT: 파트 6개, extra
       // MAT: 파트 8개
       // PBT: 파트 4개, extra
@@ -358,9 +370,30 @@ export default {
         console.log(error);
       }
     },
+    async makeGuides() {
+      try {
+        let grade = '';
+        if (this.results[0].extra === 'A') {
+          grade = 'sensitive';
+        } else if (this.results[0].extra === 'B') {
+          grade = 'meek';
+        } else if (this.results[0].extra === 'c') {
+          grade = 'slow';
+        } else {
+          grade = 'normal';
+        }
+        const { data } = await getGuides(grade);
+        if (data.success) {
+          this.guides = data.data;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   created() {
-    this.makeQuery();
+    this.makeCommentaries();
+    this.makeGuides();
     this.fillData();
   },
   mounted() {},
@@ -513,6 +546,33 @@ export default {
           text-align: center;
           font-weight: $font-w500;
         }
+      }
+    }
+
+    .guide {
+      padding: 1.5rem;
+      background-color: $grey-light-xx;
+      border-radius: 10px;
+      h2 {
+        font-size: $font-lg;
+        font-weight: $font-w600;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.guide {
+  .content {
+    p {
+      line-height: 1.5;
+      word-break: break-all;
+      text-align: justify;
+      margin-bottom: 1.5rem;
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }

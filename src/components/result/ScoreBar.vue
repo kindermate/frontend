@@ -28,7 +28,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.grade);
+    // console.log(this.grade);
   },
 };
 </script>

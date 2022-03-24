@@ -107,8 +107,9 @@ export default {
               const {
                 data: { data },
               } = await getMissionInfo({ week: week, grade: grade });
+              console.log(data);
               this.members[index]['missionSet'] = data;
-              console.log(index);
+              // console.log(index);
               if (this.members.length === index + 1) {
                 console.log(this.members[1].missionSet);
                 this.isLoaded = true;

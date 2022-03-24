@@ -38,6 +38,7 @@
         <router-link to="/mission" class="button is-fullwidth is-primary">미션 전체 보기</router-link>
       </div>
     </div>
+    <div v-else class="empty box">현재 진행중인 미션이 없습니다.</div>
   </div>
 </template>
 
@@ -109,6 +110,10 @@ export default {
         }
       }
     }
+  }
+  .empty {
+    text-align: center;
+    color: $grey;
   }
 }
 </style>
