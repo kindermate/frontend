@@ -215,6 +215,26 @@ const routes = [
     component: () => import(/* webpackChunkName: "psycheck" */ '@/views/post/NoticeDetail.vue'),
   },
   {
+    path: '/manage-members',
+    name: 'Manage Members',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('extraMenu.member'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/ManageMembers.vue'),
+  },
+  {
+    path: '/user-info',
+    name: 'User Info',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('extraMenu.userInfo'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/UserInfo.vue'),
+  },
+  {
     path: '/usage',
     name: 'Usage',
     meta: {

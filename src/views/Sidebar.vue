@@ -27,11 +27,11 @@
       </router-link>
     </nav>
     <nav class="extra">
-      <router-link to="/">
+      <router-link to="/user-info">
         <span>{{ $t('extraMenu.userInfo') }}</span>
         <img src="@/assets/img/icon_more.svg" />
       </router-link>
-      <router-link to="/">
+      <router-link to="/manage-members">
         <span>{{ $t('extraMenu.member') }}</span>
         <img src="@/assets/img/icon_more.svg" />
       </router-link>

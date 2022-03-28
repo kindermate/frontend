@@ -32,6 +32,7 @@
     "gender": "성별",
     "password": "비밀번호",
     "passwordConfirm": "비밀번호 확인",
+    "address": "주소",
     "recommander": "추천인 코드",
     "placeholder": {
       "username": "아이디를 입력하세요",
@@ -43,6 +44,7 @@
       "gender_female": "여",
       "password": "숫자를 포함한 영문 8자리",
       "passwordConfirm": "숫자를 포함한 영문 8자리",
+      "address": "선택하세요",
       "recommander": "추천인 아이디를 입력하세요"
     }
   },
@@ -69,7 +71,8 @@
       "birth": "생년월일이 없습니다.",
       "gender": "성별이 없습니다.",
       "password": "비밀번호가 없습니다.",
-      "passwordConfirm": "비밀번호 확인이 없습니다."
+      "passwordConfirm": "비밀번호 확인이 없습니다.",
+      "address": "주소가 없습니다."
     },
     "login": {
       "username": "아이디를 입력하세요.",
@@ -97,9 +100,9 @@
   "test": {
     "pageTitle": "검사",
     "about": {
-      "title": "킨더메이트 유·아동검사",
+      "title": "킨더메이트 유·아동 검사",
       "description": [
-        "킨더메이트 유·아동검사는 자녀에게 더 나은 양육환경을 제공하기 위해 자녀의 기질, 자녀의 적성, 부모의 양육 태도에 관하여 알아보기 위한 것입니다.",
+        "킨더메이트 유·아동 검사는 자녀에게 더 나은 양육환경을 제공하기 위해 자녀의 기질, 자녀의 적성, 부모의 양육 태도에 관하여 알아보기 위한 것입니다.",
         "기질이란 생애 초기부터 관찰되는 행동 경향을 말하며 상호작용의 바탕이 되므로 자녀의 성격 형성에 중요한 역할을 합니다.",
         "적성이란 특정 영역의 활동이나 작업에 필요한 능력으로 훈련과 경험을 통해서 개발되고 발현될 수 있는 개인의 잠재적 소질을 의미합니다.",
         "양육 태도는 부모 혹은 아이를 돌보는 보호자가 지향하는 양육 관련 태도를 포함하여 양육과정에서 보이는 실제 행동을 의미합니다."
@@ -194,11 +197,20 @@
       "name": "메모",
       "empty": "메모가 없습니다.",
       "add": "메모 추가하기",
-      "placeholder": "내용을 작성하세요"
+      "placeholder": "내용을 작성하세요",
+      "successUpdate": "내용을 수정했습니다.",
+      "modalTitle": {
+        "write": "메모 작성하기",
+        "edit": "메모 수정하기"
+      },
+      "buttons": {
+        "write": "메모 작성 완료",
+        "edit": "메모 내용 수정하기"
+      }
     },
     "rating": {
       "name": "달성률",
-      "comment": "달성 했습니다!"
+      "comment": "달성했습니다!"
     },
     "save": "미션 제출하기",
     "alert": {
@@ -343,6 +355,17 @@
     "backButton": "돌아가기",
     "greeting": "공지사항",
     "description": "킨더메이트에서 알려드립니다."
+  },
+  "manageMembers": {
+    "pageTitle": "검사 대상자 관리",
+    "description": "검사 대상자를 수정(이름), 삭제할 수 있습니다.",
+    "modalTitle": "검사 대상자 수정하기",
+    "deleteMemberConfirm": "대상자를 삭제하시겠습니까?",
+    "editButton": "수정하기"
+  },
+  "userInfo": {
+    "pageTitle": "내 정보",
+    "description": "회원 정보를 확인하고 수정하세요."
   },
   "404": {
     "pageTitle": "페이지 없음",

@@ -39,13 +39,13 @@
       <div class="memo">
         <div class="top">
           <h2>기록</h2>
-          <a @click="showModal = true">
+          <a @click="showMemoWriteModal = true">
             <img src="@/assets/img/icon_add.svg" />
             <span>{{ $t('mission.memo.add') }}</span>
           </a>
         </div>
         <ul v-if="memos.length" class="memo-list">
-          <li v-for="memo in memos" :key="memo.id">
+          <li @click="clickMemo(memo._id)" v-for="memo in memos" :key="memo._id">
             <div class="content">{{ memo.content }}</div>
             <div class="date">{{ memo.createdAt | moment('MM월 DD일 A hh:mm') }}</div>
           </li>
@@ -78,15 +78,42 @@
         <a @click="submitMission" class="button is-fullwidth is-primary">{{ $t('mission.save') }}</a>
       </div>
     </div>
-    <ModalBlank v-if="showModal" @close="showModal = false">
+    <!-- Memo Write -->
+    <ModalBlank v-if="showMemoWriteModal" @close="showMemoWriteModal = false">
       <template>
-        <h3>메모 작성하기</h3>
+        <h3>{{ $t('mission.memo.modalTitle.write') }}</h3>
         <textarea
           class="textarea"
           v-model="memoContent"
           :placeholder="$t('mission.memo.placeholder')"
         ></textarea>
-        <a @click="addMemo" class="button is-fullwidth is-primary mt-4">메모 작성완료</a>
+        <a @click="addMemo" class="button is-fullwidth is-primary mt-4">{{
+          $t('mission.memo.buttons.write')
+        }}</a>
+      </template>
+    </ModalBlank>
+    <!-- Memo Detail -->
+    <ModalBlank v-if="showMemoDetailModal" @close="showMemoDetailModal = false">
+      <template>
+        <h3>{{ $t('mission.memo.modalTitle.edit') }}</h3>
+        <textarea
+          class="textarea"
+          v-model="selectedMemo.content"
+          :placeholder="$t('mission.memo.placeholder')"
+        ></textarea>
+        <div class="buttons is-centered">
+          <button
+            @click="editMemo"
+            :disabled="this.selectedMemo.content === this.selectedMemoOriginalContent"
+            class="button is-fullwidth is-primary mt-4"
+          >
+            {{ $t('mission.memo.buttons.edit') }}
+          </button>
+          <a @click="deleteMemo" class="delete-memo">
+            <img src="@/assets/img/icon_delete.svg" />
+            <span>삭제하기</span>
+          </a>
+        </div>
       </template>
     </ModalBlank>
   </section>
@@ -95,7 +122,7 @@
 <script>
 import moment from 'moment';
 import { mapState } from 'vuex';
-import { getMemo, createMemo, getRating, sendRating } from '@/api';
+import { createMemo, getRating, sendRating, getMemoAll, getMemoOne, updateMemo, deleteMemo } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 import ModalBlank from '@/components/common/ModalBlank.vue';
 import StarRating from 'vue-star-rating';
@@ -104,8 +131,11 @@ export default {
   data() {
     return {
       memos: '',
+      selectedMemo: '',
+      selectedMemoOriginalContent: '',
       rating: 0,
-      showModal: false,
+      showMemoWriteModal: false,
+      showMemoDetailModal: false,
       memoContent: '',
     };
   },
@@ -131,7 +161,7 @@ export default {
     },
     async fetchMemo() {
       try {
-        const { data } = await getMemo(this.mission.id);
+        const { data } = await getMemoAll(this.mission.id);
         this.memos = data.data;
       } catch (error) {
         console.log(error);
@@ -150,10 +180,50 @@ export default {
         const { data } = await createMemo(payload);
         console.log(data);
         if (data.success) {
-          this.showModal = false;
+          this.showMemoWriteModal = false;
           this.memoContent = '';
           this.fetchMemo();
         }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async editMemo() {
+      try {
+        const payload = {
+          id: this.selectedMemo._id,
+          content: this.selectedMemo.content,
+        };
+        const { data } = await updateMemo(payload);
+        if (data.success) {
+          alert(this.$t('mission.memo.successUpdate'));
+          this.fetchMemo();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteMemo() {
+      if (confirm('메모를 삭제할까요?')) {
+        try {
+          const { data } = await deleteMemo(this.selectedMemo._id);
+          if (data.success) {
+            this.showMemoDetailModal = false;
+            this.fetchMemo();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    async clickMemo(id) {
+      try {
+        const { data } = await getMemoOne(id);
+        if (data.success) {
+          this.selectedMemo = data.data;
+          this.selectedMemoOriginalContent = data.data.content;
+        }
+        this.showMemoDetailModal = true;
       } catch (error) {
         console.log(error);
       }
@@ -305,6 +375,7 @@ export default {
           line-height: 1.3;
           color: rgba(0, 0, 0, 0.8);
           height: 150px;
+          cursor: pointer;
           &:nth-child(1n) {
             background-color: #ecf8fa;
           }
@@ -372,6 +443,24 @@ export default {
       resize: none;
       box-shadow: none;
       height: 200px;
+    }
+    .delete-memo {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3rem;
+      img {
+        display: block;
+        width: 15px;
+        margin-right: 4px;
+      }
+      span {
+        color: $black;
+        font-size: $font-sm;
+        font-weight: $font-w500;
+        user-select: none;
+      }
     }
   }
 }

@@ -40,6 +40,14 @@ export const createMember = payload => {
   return instance.post('/members/create', payload);
 };
 
+export const updateMember = payload => {
+  return instance.put('/members', payload);
+};
+
+export const deleteMember = id => {
+  return instance.delete(`/members/${id}`);
+};
+
 // test
 export const getTestInfo = payload => {
   return instance.get(`/tests/${payload}`);
@@ -71,12 +79,24 @@ export const getMissionInfo = payload => {
   return instance.get(`/missions/weeks?week=${payload.week}&grade=${payload.grade}`);
 };
 
-export const getMemo = id => {
+export const getMemoAll = id => {
+  return instance.get(`/memos?mission=${id}`);
+};
+
+export const getMemoOne = id => {
   return instance.get(`/memos/${id}`);
 };
 
 export const createMemo = payload => {
   return instance.post('/memos', payload);
+};
+
+export const updateMemo = payload => {
+  return instance.put('/memos', payload);
+};
+
+export const deleteMemo = id => {
+  return instance.delete(`/memos/${id}`);
 };
 
 export const getRating = payload => {

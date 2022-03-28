@@ -79,6 +79,28 @@
           />
         </div>
       </div>
+      <!-- 주소 -->
+      <div class="field">
+        <label class="label">{{ $t('join.address') }}</label>
+        <div class="control is-address">
+          <div class="select">
+            <select v-model="address1" @change="selectAddress1">
+              <option disabled value="">{{ $t('join.placeholder.address') }}</option>
+              <option v-for="item in addressList1" :key="item.code" :value="item.name">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+          <div class="select">
+            <select v-model="address2">
+              <option disabled value="">{{ $t('join.placeholder.address') }}</option>
+              <option v-for="(item, index) in addressList2" :key="index" :value="item">
+                {{ item }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
       <!-- 추천인 코드 -->
       <div class="field">
         <label class="label">{{ $t('join.recommander') }}</label>
@@ -98,6 +120,7 @@
 
 <script>
 import { join } from '@/api';
+import axios from 'axios';
 
 export default {
   data() {
@@ -109,10 +132,61 @@ export default {
       gender: '',
       password: '',
       passwordConfirm: '',
+      address1: '',
+      address2: '',
       recommander: '',
+      addressList1: '',
+      addressList2: [],
     };
   },
   methods: {
+    async fetchAddress1() {
+      try {
+        const response = await axios.get(
+          'https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=*00000000',
+        );
+        if (response.status === 200) {
+          this.addressList1 = response.data.regcodes;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchAddress2(code) {
+      const first = code.substring(0, 2);
+      try {
+        let response;
+        if (
+          first === '41' ||
+          first === '43' ||
+          first === '44' ||
+          first === '45' ||
+          first === '47' ||
+          first === '48'
+        ) {
+          response = await axios.get(
+            `https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=${first}*000000&is_ignore_zero=true`,
+          );
+        } else {
+          response = await axios.get(
+            `https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=${first}*00000&is_ignore_zero=true`,
+          );
+        }
+        if (response.status === 200) {
+          this.addressList2 = [];
+          response.data.regcodes.forEach(item => {
+            this.addressList2.push(item.name.split(' ')[1]);
+          });
+        }
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    selectAddress1() {
+      const address = this.addressList1.find(item => item.name === this.address1);
+      this.fetchAddress2(address.code);
+    },
     async submit() {
       // validation
       if (!this.username) {
@@ -143,6 +217,10 @@ export default {
         alert(this.$t('alert.join.passwordConfirm'));
         return;
       }
+      if (!this.address1 || !this.address2) {
+        alert(this.$t('alert.join.address'));
+        return;
+      }
 
       // join process
       try {
@@ -153,6 +231,8 @@ export default {
           birth: this.birth,
           gender: this.gender,
           password: this.password,
+          address1: this.address1,
+          address2: this.address2,
           recommander: this.recommander,
         };
         const { data } = await join(payload);
@@ -163,6 +243,9 @@ export default {
         console.log(error.response.data.message);
       }
     },
+  },
+  created() {
+    this.fetchAddress1();
   },
 };
 </script>
@@ -177,6 +260,11 @@ export default {
       margin-bottom: 1.5rem;
       label {
         font-weight: $font-w500;
+      }
+      .is-address {
+        .select {
+          margin-right: 10px;
+        }
       }
     }
   }
