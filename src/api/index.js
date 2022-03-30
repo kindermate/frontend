@@ -31,6 +31,18 @@ export const getCurrentUser = () => {
   return instance.get('/users');
 };
 
+export const checkPassword = payload => {
+  return instance.post('/users/check-password', payload);
+};
+
+export const updateUserInfo = payload => {
+  return instance.put(`/users/${payload.id}`, payload);
+};
+
+export const changePassword = payload => {
+  return instance.put(`/users/change-password/${payload.id}`, payload);
+};
+
 // member
 export const getMemberAll = id => {
   return instance.get(`/members/${id}`);

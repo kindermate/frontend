@@ -31,7 +31,7 @@ const routes = [
         next: '/join',
       },
     },
-    component: () => import(/* webpackChunkName: "home" */ '@/views/join/Agreement.vue'),
+    component: () => import(/* webpackChunkName: "agreement" */ '@/views/join/Agreement.vue'),
   },
   {
     path: '/join',
@@ -40,7 +40,7 @@ const routes = [
       pageTitle: i18n.t('join.pageTitle'),
       isBottomNav: false,
     },
-    component: () => import(/* webpackChunkName: "home" */ '@/views/join/Join.vue'),
+    component: () => import(/* webpackChunkName: "join" */ '@/views/join/Join.vue'),
   },
   {
     path: '/join/complete',
@@ -49,7 +49,27 @@ const routes = [
       pageTitle: i18n.t('joinComplete.pageTitle'),
       isBottomNav: false,
     },
-    component: () => import(/* webpackChunkName: "home" */ '@/views/join/JoinComplete.vue'),
+    component: () => import(/* webpackChunkName: "joinComplete" */ '@/views/join/JoinComplete.vue'),
+  },
+  {
+    path: '/update-user-info',
+    name: 'Update User Info',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('join.pageTitle'),
+      isBottomNav: false,
+    },
+    component: () => import(/* webpackChunkName: "updateUserInfo" */ '@/views/user/UpdateUserInfo.vue'),
+  },
+  {
+    path: '/change-password',
+    name: 'Change Password',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('changePassword.pageTitle'),
+      isBottomNav: false,
+    },
+    component: () => import(/* webpackChunkName: "updateUserInfo" */ '@/views/user/ChangePassword.vue'),
   },
   {
     path: '/login',
@@ -58,7 +78,7 @@ const routes = [
       pageTitle: i18n.t('login.pageTitle'),
       isBottomNav: false,
     },
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Login.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
   },
   {
     path: '/test',
@@ -69,7 +89,7 @@ const routes = [
       isBottomNav: true,
       bgColor: '#fff',
     },
-    component: () => import(/* webpackChunkName: "test" */ '@/views/test/About.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '@/views/test/About.vue'),
   },
   {
     path: '/test/select',
@@ -80,7 +100,7 @@ const routes = [
       isBottomNav: true,
       bgColor: '#fff',
     },
-    component: () => import(/* webpackChunkName: "test" */ '@/views/test/SelectMember.vue'),
+    component: () => import(/* webpackChunkName: "selectMember" */ '@/views/test/SelectMember.vue'),
   },
   {
     path: '/test/cover',
@@ -91,7 +111,7 @@ const routes = [
       isBottomNav: false,
       bgColor: '#fff',
     },
-    component: () => import(/* webpackChunkName: "test" */ '@/views/test/Cover.vue'),
+    component: () => import(/* webpackChunkName: "cover" */ '@/views/test/Cover.vue'),
   },
   {
     path: '/test/question',
@@ -102,7 +122,7 @@ const routes = [
       isBottomNav: false,
       noPadding: true,
     },
-    component: () => import(/* webpackChunkName: "test" */ '@/views/test/Question.vue'),
+    component: () => import(/* webpackChunkName: "question" */ '@/views/test/Question.vue'),
   },
   {
     path: '/test/complete',
@@ -112,7 +132,7 @@ const routes = [
       pageTitle: i18n.t('test.complete.pageTitle'),
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "test" */ '@/views/test/Complete.vue'),
+    component: () => import(/* webpackChunkName: "testComplete" */ '@/views/test/Complete.vue'),
   },
   {
     path: '/mission',
@@ -134,7 +154,7 @@ const routes = [
       bgColor: '#6FC9D6',
       noPadding: true,
     },
-    component: () => import(/* webpackChunkName: "mission" */ '@/views/mission/MissionDetail.vue'),
+    component: () => import(/* webpackChunkName: "missionDetail" */ '@/views/mission/MissionDetail.vue'),
   },
   {
     path: '/mission/next',
@@ -146,7 +166,7 @@ const routes = [
       bgColor: '#6FC9D6',
       noPadding: true,
     },
-    component: () => import(/* webpackChunkName: "mission" */ '@/views/mission/MissionNext.vue'),
+    component: () => import(/* webpackChunkName: "missionNext" */ '@/views/mission/MissionNext.vue'),
   },
   {
     path: '/result',
@@ -168,7 +188,7 @@ const routes = [
       isBottomNav: true,
       noPadding: true,
     },
-    component: () => import(/* webpackChunkName: "result" */ '@/views/result/ResultDetail.vue'),
+    component: () => import(/* webpackChunkName: "resultDetail" */ '@/views/result/ResultDetail.vue'),
   },
   {
     path: '/psycheck',
@@ -190,7 +210,7 @@ const routes = [
       isBottomNav: true,
       noPadding: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/Sidebar.vue'),
+    component: () => import(/* webpackChunkName: "sidebar" */ '@/views/Sidebar.vue'),
   },
   {
     path: '/notice',
@@ -201,7 +221,7 @@ const routes = [
       bgColor: '#fff',
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/post/NoticeList.vue'),
+    component: () => import(/* webpackChunkName: "noticeList" */ '@/views/post/NoticeList.vue'),
   },
   {
     path: '/notice/:id',
@@ -212,7 +232,7 @@ const routes = [
       bgColor: '#fff',
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/post/NoticeDetail.vue'),
+    component: () => import(/* webpackChunkName: "noticeDetail" */ '@/views/post/NoticeDetail.vue'),
   },
   {
     path: '/manage-members',
@@ -222,7 +242,7 @@ const routes = [
       pageTitle: i18n.t('extraMenu.member'),
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/ManageMembers.vue'),
+    component: () => import(/* webpackChunkName: "manageMembers" */ '@/views/etc/ManageMembers.vue'),
   },
   {
     path: '/user-info',
@@ -232,29 +252,37 @@ const routes = [
       pageTitle: i18n.t('extraMenu.userInfo'),
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/UserInfo.vue'),
+    component: () => import(/* webpackChunkName: "userInfo" */ '@/views/user/UserInfo.vue'),
+  },
+  {
+    path: '/check-password',
+    name: 'Check Password',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('extraMenu.checkPassword'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "checkPassword" */ '@/views/etc/CheckPassword.vue'),
   },
   {
     path: '/usage',
     name: 'Usage',
     meta: {
-      auth: true,
       pageTitle: i18n.t('extraMenu.usage'),
       bgColor: '#fff',
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/Usage.vue'),
+    component: () => import(/* webpackChunkName: "usage" */ '@/views/etc/Usage.vue'),
   },
   {
     path: '/privacy',
     name: 'Privacy',
     meta: {
-      auth: true,
       pageTitle: i18n.t('extraMenu.privacy'),
       bgColor: '#fff',
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/etc/Privacy.vue'),
+    component: () => import(/* webpackChunkName: "privacy" */ '@/views/etc/Privacy.vue'),
   },
   {
     path: '*',

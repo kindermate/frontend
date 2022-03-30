@@ -21,7 +21,7 @@
       </router-link>
       <router-link to="/psycheck">
         <div class="image">
-          <img src="@/assets/img/plane.svg" />
+          <img src="@/assets/img/face.svg" />
         </div>
         <span>{{ $t('menu.psycheck') }}</span>
       </router-link>

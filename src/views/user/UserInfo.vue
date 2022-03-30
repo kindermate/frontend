@@ -4,29 +4,33 @@
     <p>{{ $t('userInfo.description') }}</p>
     <ul class="info-list">
       <li>
-        <div class="key">아이디</div>
+        <div class="key">{{ $t('join.username') }}</div>
         <div class="value">{{ user.username }}</div>
       </li>
       <li>
-        <div class="key">닉네임</div>
+        <div class="key">{{ $t('join.nickname') }}</div>
         <div class="value">{{ user.nickname }}</div>
       </li>
       <li>
-        <div class="key">이메일</div>
+        <div class="key">{{ $t('join.email') }}</div>
         <div class="value">{{ user.email }}</div>
       </li>
       <li>
-        <div class="key">생년월일</div>
+        <div class="key">{{ $t('join.birth') }}</div>
         <div class="value">{{ user.birth }}</div>
       </li>
       <li>
-        <div class="key">주소</div>
+        <div class="key">{{ $t('join.address') }}</div>
         <div class="value">{{ user.address1 }} {{ user.address2 }}</div>
       </li>
     </ul>
     <div class="buttons">
-      <a href="" class="button is-dark is-outlined is-fullwidth">회원정보 수정</a>
-      <a href="" class="button is-primary is-outlined is-fullwidth">비밀번호 변경</a>
+      <router-link to="/check-password?next=password" class="button is-primary is-outlined is-fullwidth">{{
+        $t('userInfo.buttons.password')
+      }}</router-link>
+      <router-link to="/check-password?next=user" class="button is-primary is-fullwidth">{{
+        $t('userInfo.buttons.update')
+      }}</router-link>
     </div>
   </section>
 </template>

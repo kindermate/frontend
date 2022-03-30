@@ -8,6 +8,7 @@
   },
   "extraMenu": {
     "userInfo": "내 정보",
+    "checkPassword": "비밀번호 확인",
     "member": "검사 대상자 관리",
     "notice": "공지사항",
     "promotion": "프로모션",
@@ -365,7 +366,37 @@
   },
   "userInfo": {
     "pageTitle": "내 정보",
-    "description": "회원 정보를 확인하고 수정하세요."
+    "description": "회원 정보를 확인하고 수정하세요.",
+    "buttons": {
+      "update": "회원정보 수정",
+      "password": "비밀번호 변경"
+    }
+  },
+  "updateUserInfo": {
+    "pageTitle": "회원 정보 수정",
+    "description": "회원 정보를 확인하고 수정하세요.",
+    "alert": {
+      "noChanged": "수정된 정보가 없습니다.",
+      "success": "회원정보가 수정되었습니다."
+    }
+  },
+  "checkPassword": {
+    "pageTitle": "비밀번호 확인",
+    "description": "본인 확인이 필요합니다. 비밀번호를 입력해주세요.",
+    "button": "확인",
+    "alert": {
+      "empty": "비밀번호를 입력하세요.",
+      "wrong": "비밀번호를 다시 확인해주세요."
+    }
+  },
+  "changePassword": {
+    "pageTitle": "비밀번호 변경",
+    "description": "새로운 비밀번호를 입력해주세요.",
+    "button": "비밀번호를 변경합니다.",
+    "alert": {
+      "empty": "비밀번호를 입력하세요.",
+      "wrong": "비밀번호를 다시 확인해주세요."
+    }
   },
   "404": {
     "pageTitle": "페이지 없음",
