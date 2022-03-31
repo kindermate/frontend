@@ -16,9 +16,9 @@
               :placeholder="$t('join.placeholder.username')"
             />
           </div>
-          <!-- <div class="control">
+          <div class="control">
             <a @click="checkUsername" class="button is-success">중복체크</a>
-          </div> -->
+          </div>
         </div>
       </div>
       <!-- 닉네임 -->
@@ -124,13 +124,14 @@
 </template>
 
 <script>
-import { join } from '@/api';
+import { join, checkUsername } from '@/api';
 import axios from 'axios';
 
 export default {
   data() {
     return {
       username: '',
+      checkedUsername: false,
       nickname: '',
       email: '',
       birth: '',
@@ -145,12 +146,23 @@ export default {
     };
   },
   methods: {
-    checkUsername() {
+    async checkUsername() {
       if (!this.username) {
         alert(this.$t('alert.join.noUsername'));
         return;
       }
-      console.log(this.username);
+      try {
+        const { data } = await checkUsername(this.username);
+        if (data.success) {
+          alert(this.$t('alert.join.availableUsername'));
+          this.checkedUsername = true;
+        }
+      } catch (error) {
+        if (error.response.data.success === false) {
+          alert(this.$t('alert.join.duplicateUsername'));
+          this.checkedUsername = false;
+        }
+      }
     },
     async fetchAddress1() {
       try {
@@ -203,6 +215,10 @@ export default {
       // validation
       if (!this.username) {
         alert(this.$t('alert.join.username'));
+        return;
+      }
+      if (!this.checkedUsername) {
+        alert(this.$t('alert.join.checkUsername'));
         return;
       }
       if (!this.nickname) {

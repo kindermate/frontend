@@ -79,7 +79,10 @@
       "password": "비밀번호가 없습니다.",
       "passwordConfirm": "비밀번호 확인이 없습니다.",
       "address": "주소가 없습니다.",
-      "noUsername": "아이디를 입력하세요"
+      "noUsername": "아이디를 입력하세요",
+      "checkUsername": "아이디 중복체크를 해주세요.",
+      "availableUsername": "사용 가능한 아이디입니다.",
+      "duplicateUsername": "사용이 불가능한 아이디입니다."
     },
     "login": {
       "username": "아이디를 입력하세요.",

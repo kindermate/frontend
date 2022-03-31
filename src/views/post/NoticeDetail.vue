@@ -46,6 +46,15 @@ export default {
   }
   .content {
     padding: 1rem 0;
+    margin-top: 1.5rem;
+  }
+}
+</style>
+
+<style lang="scss">
+.content {
+  p {
+    margin-bottom: 0.5rem !important;
   }
 }
 </style>

@@ -35,6 +35,10 @@ export const checkPassword = payload => {
   return instance.post('/users/check-password', payload);
 };
 
+export const checkUsername = username => {
+  return instance.get(`/users/check-username?username=${username}`);
+};
+
 export const updateUserInfo = payload => {
   return instance.put(`/users/${payload.id}`, payload);
 };
