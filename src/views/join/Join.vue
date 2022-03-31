@@ -7,13 +7,18 @@
       <!-- 아이디 -->
       <div class="field">
         <label class="label">{{ $t('join.username') }}</label>
-        <div class="control">
-          <input
-            v-model="username"
-            class="input"
-            type="text"
-            :placeholder="$t('join.placeholder.username')"
-          />
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input
+              v-model="username"
+              class="input"
+              type="text"
+              :placeholder="$t('join.placeholder.username')"
+            />
+          </div>
+          <div class="control">
+            <a @click="checkUsername" class="button is-success">중복체크</a>
+          </div>
         </div>
       </div>
       <!-- 닉네임 -->
@@ -140,6 +145,13 @@ export default {
     };
   },
   methods: {
+    checkUsername() {
+      if (!this.username) {
+        alert(this.$t('alert.join.noUsername'));
+        return;
+      }
+      console.log(this.username);
+    },
     async fetchAddress1() {
       try {
         const response = await axios.get(
@@ -260,6 +272,10 @@ export default {
       margin-bottom: 1.5rem;
       label {
         font-weight: $font-w500;
+      }
+      .button {
+        height: 3rem;
+        font-size: 1rem;
       }
       .is-address {
         .select {

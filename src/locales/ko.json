@@ -73,7 +73,8 @@
       "gender": "성별이 없습니다.",
       "password": "비밀번호가 없습니다.",
       "passwordConfirm": "비밀번호 확인이 없습니다.",
-      "address": "주소가 없습니다."
+      "address": "주소가 없습니다.",
+      "noUsername": "아이디를 입력하세요"
     },
     "login": {
       "username": "아이디를 입력하세요.",
