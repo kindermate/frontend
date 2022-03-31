@@ -1,10 +1,10 @@
 <template>
   <header>
     <nav>
-      <a @click="$router.back()" class="left">
+      <a v-show="leftMenu" @click="$router.back()" class="left">
         <img src="@/assets/img/left-arrow.svg" alt="left" />
       </a>
-      <router-link to="/sidebar" class="right">
+      <router-link v-show="rightMenu" to="/sidebar" class="right">
         <img src="@/assets/img/menu.svg" alt="menu" />
       </router-link>
     </nav>
@@ -17,6 +17,20 @@ export default {
   computed: {
     pageTitle() {
       return this.$route.meta.pageTitle;
+    },
+    leftMenu() {
+      if (this.$route.meta.isLeftMenu === false) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    rightMenu() {
+      if (this.$route.meta.isRightMenu === false) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
   methods: {

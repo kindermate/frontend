@@ -270,7 +270,9 @@ const routes = [
     meta: {
       pageTitle: i18n.t('extraMenu.about'),
       bgColor: '#fff',
-      isBottomNav: true,
+      isBottomNav: false,
+      isLeftMenu: false,
+      isRightMenu: false,
     },
     component: () => import(/* webpackChunkName: "about" */ '@/views/etc/About.vue'),
   },
