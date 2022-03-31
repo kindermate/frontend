@@ -265,6 +265,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "checkPassword" */ '@/views/etc/CheckPassword.vue'),
   },
   {
+    path: '/about',
+    name: 'About',
+    meta: {
+      pageTitle: i18n.t('extraMenu.about'),
+      bgColor: '#fff',
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "about" */ '@/views/etc/About.vue'),
+  },
+  {
     path: '/usage',
     name: 'Usage',
     meta: {

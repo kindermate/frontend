@@ -14,12 +14,17 @@
     "promotion": "프로모션",
     "contact": "문의하기",
     "faq": "자주하는 질문",
+    "about": "킨더메이트",
     "usage": "이용약관",
     "privacy": "개인정보취급방침",
     "logout": "로그아웃"
   },
   "home": {
     "pageTitle": "홈",
+    "greeting": "님, 안녕하세요<br/>이번 주 미션은 달성하셨나요?"
+  },
+  "about": {
+    "pageTitle": "킨더메이트",
     "greeting": "님, 안녕하세요<br/>이번 주 미션은 달성하셨나요?"
   },
   "join": {

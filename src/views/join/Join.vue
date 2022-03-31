@@ -16,9 +16,9 @@
               :placeholder="$t('join.placeholder.username')"
             />
           </div>
-          <div class="control">
+          <!-- <div class="control">
             <a @click="checkUsername" class="button is-success">중복체크</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- 닉네임 -->
