@@ -7,20 +7,17 @@
       </transition>
     </main>
     <BottomNavBar v-show="$route.meta.isBottomNav" />
-    <BigButton v-if="$route.meta.bigButton" />
   </div>
 </template>
 
 <script>
 import AppBar from '@/components/common/AppBar.vue';
 import BottomNavBar from '@/components/common/BottomNavBar.vue';
-import BigButton from '@/components/common/BigButton.vue';
 
 export default {
   components: {
     AppBar,
     BottomNavBar,
-    BigButton,
   },
   updated() {
     // 배경 컬러 설정
@@ -28,12 +25,6 @@ export default {
       document.body.style.backgroundColor = this.$route.meta.bgColor;
     } else {
       document.body.style.backgroundColor = '#f2f4f3';
-    }
-    // main 패딩 설정
-    if (this.$route.meta.noPadding) {
-      this.$refs.main.classList.add('no-padding');
-    } else {
-      this.$refs.main.classList.remove('no-padding');
     }
   },
 };
@@ -48,6 +39,6 @@ export default {
   opacity: 0;
 }
 .page-enter-active {
-  transition: opacity 0.35s ease-out, transform 0.5s ease;
+  transition: transform 0.4s ease, opacity 0.3s ease-out;
 }
 </style>

@@ -104,8 +104,11 @@
     "greeting": "아래 내용에 동의해 주세요.",
     "description": "원활한 서비스 제공을 위해 이용 약관을 확인하시고 동의해 주세요.",
     "buttonMessage": "모두 확인, 동의합니다.",
-    "checkboxMessage1": "이용약관 동의",
-    "checkboxMessage2": "개인정보 수집/이용 동의"
+    "agreement1": "이용약관 동의",
+    "agreement2": "개인정보 수집/이용 동의",
+    "agreement3": "마케팅 수신동의",
+    "agreement4": "제3자 마케팅 활용동의",
+    "agreement5": "이벤트 및 할인소식 알림동의"
   },
   "test": {
     "pageTitle": "검사",

@@ -1,23 +1,13 @@
 <template>
-  <a @click.prevent="click" class="big-button" href="">
+  <router-link :to="to" class="big-button">
     <span>다음</span>
-  </a>
+  </router-link>
 </template>
 
 <script>
-import bus from '@/utils/bus';
-
 export default {
-  data() {
-    return {
-      link: this.$route.meta.bigButton.next,
-    };
-  },
-  methods: {
-    click() {
-      // next 경로는 route.meta에 존재함
-      bus.$emit('goNext', this.link);
-    },
+  props: {
+    to: String,
   },
 };
 </script>

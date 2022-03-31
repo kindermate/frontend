@@ -26,7 +26,7 @@
       </div>
       <button class="button is-fullwidth is-warning">{{ $t('login.loginButton') }}</button>
     </form>
-    <router-link to="/join" class="join button is-dark mt-6">{{ $t('login.joinButton') }}</router-link>
+    <router-link to="/agreement" class="join button is-dark mt-6">{{ $t('login.joinButton') }}</router-link>
   </section>
 </template>
 
