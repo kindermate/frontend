@@ -22,6 +22,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
   },
   {
+    path: '/overview',
+    name: 'Overview',
+    meta: {
+      pageTitle: i18n.t('overview.pageTitle'),
+      isLeftMenu: false,
+      isRightMenu: false,
+    },
+    component: () => import(/* webpackChunkName: "overview" */ '@/views/etc/Overview.vue'),
+  },
+  {
     path: '/agreement',
     name: 'Agreement',
     meta: {
@@ -326,6 +336,11 @@ router.beforeEach((to, from, next) => {
     $store.commit('SET_BOTTOM_NAV', false);
   } else {
     $store.commit('SET_BOTTOM_NAV', true);
+  }
+  // 처음 접근 시
+  if ($store.state.isFirstVisit) {
+    $store.commit('SET_VISIT', false);
+    next('/overview');
   }
   next();
 });

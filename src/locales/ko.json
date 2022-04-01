@@ -23,6 +23,9 @@
     "pageTitle": "홈",
     "greeting": "님, 안녕하세요<br/>이번 주 미션은 달성하셨나요?"
   },
+  "overview": {
+    "pageTitle": "킨더메이트"
+  },
   "about": {
     "pageTitle": "킨더메이트",
     "greeting": "님, 안녕하세요<br/>이번 주 미션은 달성하셨나요?"

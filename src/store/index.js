@@ -37,8 +37,12 @@ export default new Vuex.Store({
       currentMember: {},
       currentResult: {},
     },
+    isFirstVisit: true,
   },
   mutations: {
+    SET_VISIT(state, payload) {
+      state.isFirstVisit = payload;
+    },
     SET_BOTTOM_NAV(state, payload) {
       state.bottomNav = payload;
     },

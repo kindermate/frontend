@@ -66,7 +66,6 @@ header {
     position: absolute;
     width: 100%;
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
     a {
@@ -84,6 +83,10 @@ header {
         // width: 30px;
         // height: 30px;
         pointer-events: none;
+      }
+
+      &.right {
+        margin-left: auto;
       }
     }
   }
