@@ -84,6 +84,8 @@ const routes = [
     meta: {
       pageTitle: i18n.t('login.pageTitle'),
       isBottomNav: false,
+      isLeftMenu: false,
+      isRightMenu: false,
     },
     component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
   },
@@ -284,7 +286,8 @@ const routes = [
     meta: {
       pageTitle: i18n.t('extraMenu.usage'),
       bgColor: '#fff',
-      isBottomNav: true,
+      isBottomNav: false,
+      isRightMenu: false,
     },
     component: () => import(/* webpackChunkName: "usage" */ '@/views/etc/Usage.vue'),
   },
@@ -294,7 +297,8 @@ const routes = [
     meta: {
       pageTitle: i18n.t('extraMenu.privacy'),
       bgColor: '#fff',
-      isBottomNav: true,
+      isBottomNav: false,
+      isRightMenu: false,
     },
     component: () => import(/* webpackChunkName: "privacy" */ '@/views/etc/Privacy.vue'),
   },
