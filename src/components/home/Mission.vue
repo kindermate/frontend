@@ -54,6 +54,8 @@ export default {
     ProfileBlock,
     CircleIcon,
   },
+  methods: {},
+  created() {},
 };
 </script>
 

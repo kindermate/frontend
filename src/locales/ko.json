@@ -41,7 +41,7 @@
     "address": "주소",
     "recommander": "추천인 코드",
     "placeholder": {
-      "username": "아이디를 입력하세요",
+      "username": "아이디를 입력하세요 (5자 이상)",
       "nickname": "닉네임을 입력하세요",
       "email": "이메일을 입력하세요",
       "birth": "생년월일 6자리를 입력하세요 (예:19820101)",
@@ -78,11 +78,15 @@
       "gender": "성별이 없습니다.",
       "password": "비밀번호가 없습니다.",
       "passwordConfirm": "비밀번호 확인이 없습니다.",
+      "diffPassword": "동일한 비밀번호를 넣어주세요.",
       "address": "주소가 없습니다.",
       "noUsername": "아이디를 입력하세요",
+      "tooShortUsername": "아이디를 5자 이상 입력해주세요",
       "checkUsername": "아이디 중복체크를 해주세요.",
       "availableUsername": "사용 가능한 아이디입니다.",
-      "duplicateUsername": "사용이 불가능한 아이디입니다."
+      "duplicateUsername": "사용이 불가능한 아이디입니다.",
+      "unavailablePassword": "숫자를 포함한 영문 8자리를 입력해주세요",
+      "notFormatPassword": "비밀번호가 형식에 맞지 않습니다."
     },
     "login": {
       "username": "아이디를 입력하세요.",

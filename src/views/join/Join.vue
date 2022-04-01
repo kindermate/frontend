@@ -37,7 +37,7 @@
       <div class="field">
         <label class="label">{{ $t('join.email') }}</label>
         <div class="control">
-          <input v-model="email" class="input" type="text" :placeholder="$t('join.placeholder.email')" />
+          <input v-model="email" class="input" type="email" :placeholder="$t('join.placeholder.email')" />
         </div>
       </div>
       <!-- 생년월일 -->
@@ -69,6 +69,7 @@
             class="input"
             type="password"
             :placeholder="$t('join.placeholder.password')"
+            @blur="checkPassword"
           />
         </div>
       </div>
@@ -138,6 +139,7 @@ export default {
       gender: '',
       password: '',
       passwordConfirm: '',
+      checkedPassword: false,
       address1: '',
       address2: '',
       recommander: '',
@@ -151,6 +153,10 @@ export default {
         alert(this.$t('alert.join.noUsername'));
         return;
       }
+      if (this.username.length < 5) {
+        alert(this.$t('alert.join.tooShortUsername'));
+        return;
+      }
       try {
         const { data } = await checkUsername(this.username);
         if (data.success) {
@@ -162,6 +168,15 @@ export default {
           alert(this.$t('alert.join.duplicateUsername'));
           this.checkedUsername = false;
         }
+      }
+    },
+    checkPassword() {
+      const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+      if (!regex.test(this.password)) {
+        alert(this.$t('alert.join.unavailablePassword'));
+        this.checkedPassword = false;
+      } else {
+        this.checkedPassword = true;
       }
     },
     async fetchAddress1() {
@@ -243,6 +258,14 @@ export default {
       }
       if (!this.passwordConfirm) {
         alert(this.$t('alert.join.passwordConfirm'));
+        return;
+      }
+      if (this.password !== this.passwordConfirm) {
+        alert(this.$t('alert.join.diffPassword'));
+        return;
+      }
+      if (!this.checkedPassword) {
+        alert(this.$t('alert.join.notFormatPassword'));
         return;
       }
       if (!this.address1 || !this.address2) {
