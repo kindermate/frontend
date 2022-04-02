@@ -47,6 +47,7 @@ export default {
     async fetchRecentMission() {
       try {
         const { data } = await getRecentMission();
+        console.log(data);
         this.recentMission = data;
       } catch (err) {
         console.log(err);

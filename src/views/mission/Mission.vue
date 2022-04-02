@@ -100,20 +100,23 @@ export default {
     async fetchMissionInfo() {
       let count = 0;
       this.members.forEach(async (member, index) => {
-        const week = member.missions[0].week;
-        const grade = this.getGrade(week, index);
-        try {
-          const {
-            data: { data },
-          } = await getMissionInfo({ week: week, grade: grade });
-          this.members[index]['missionSet'] = data;
-        } catch (error) {
-          console.log(error);
-        } finally {
-          count = count + 1;
-          if (count === this.members.length) {
-            this.isLoaded = true;
+        if (member.missions.length > 0) {
+          const week = member.missions[0].week;
+          const grade = this.getGrade(week, index);
+          try {
+            const {
+              data: { data },
+            } = await getMissionInfo({ week: week, grade: grade });
+            this.members[index]['missionSet'] = data;
+          } catch (error) {
+            console.log(error);
+          } finally {
+            count = count + 1;
+            if (count === this.members.length) {
+              this.isLoaded = true;
+            }
           }
+          this.isLoaded = true;
         }
       });
     },

@@ -4,8 +4,8 @@
     <ul v-if="members.length" class="member-list">
       <li
         ref="member"
-        @click="selectMember"
-        v-for="member in members"
+        @click="selectMember($event, index)"
+        v-for="(member, index) in members"
         :key="member._id"
         :data-id="member._id"
       >
@@ -15,8 +15,10 @@
           <span>{{ member.name }}</span>
         </div>
         <div class="info">
-          {{ getGender(member.gender) }} / {{ member.birth | moment('YYYY년 MM월 DD일생') }}
-          <!-- {{ getMonths(member.birth) }} -->
+          <div class="top">
+            {{ getGender(member.gender) }} / {{ member.birth | moment('YYYY년 MM월 DD일생') }}
+          </div>
+          <div v-if="member.hasActiveMission" class="bottom">미션을 완수한 이후 재검사가 가능합니다</div>
         </div>
       </li>
     </ul>
@@ -130,7 +132,12 @@ export default {
         console.log(error);
       }
     },
-    selectMember(event) {
+    selectMember(event, index) {
+      if (this.members[index].hasActiveMission) {
+        alert('선택한 대상자는 현재 미션을 진행중입니다.');
+        return;
+      }
+
       this.$refs.member.forEach(item => {
         item.classList.remove('is-active');
       });
@@ -227,8 +234,13 @@ export default {
         .ok-off {
           display: none;
         }
+        border-color: $green;
+        .name,
+        .info {
+          font-weight: $font-w600;
+          color: $black;
+        }
       }
-
       .name {
         display: flex;
         align-items: center;
@@ -244,14 +256,10 @@ export default {
       .info {
         color: $grey;
         font-size: $font-sm;
-      }
-
-      &.is-active {
-        border-color: $green;
-        .name,
-        .info {
-          font-weight: $font-w600;
-          color: $black;
+        text-align: right;
+        .bottom {
+          font-size: 12px;
+          color: $orange;
         }
       }
     }
