@@ -4,7 +4,11 @@
     <ul class="notice-list">
       <li v-for="post in posts" :key="post._id">
         <router-link :to="`/notice/${post._id}`">
-          <div class="subject">{{ post.title }}</div>
+          <div class="subject">
+            <span>
+              {{ post.title }}
+            </span>
+          </div>
           <div class="date">{{ post.createdAt | moment('YYYY년 M월 D일') }}</div>
         </router-link>
       </li>

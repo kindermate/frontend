@@ -94,8 +94,10 @@ export default {
     },
     getGrade(week, index) {
       // todo: 주차별로 처리해야 함 중복되는 주도 고려
-      if (week === 1) return this.members[index].resultSet['CTT'][0];
-      if (week === 2) return this.members[index].resultSet['CTT'][1];
+      if (week === 1) return this.members[index].resultSet['PBT'][0];
+      if (week === 2) return this.members[index].resultSet['PBT'][1];
+      if (week === 3) return this.members[index].resultSet['PBT'][2];
+      if (week === 4) return this.members[index].resultSet['PBT'][3];
     },
     async fetchMissionInfo() {
       let count = 0;
@@ -116,7 +118,11 @@ export default {
               this.isLoaded = true;
             }
           }
-          this.isLoaded = true;
+        } else {
+          count = count + 1;
+          if (count === this.members.length) {
+            this.isLoaded = true;
+          }
         }
       });
     },

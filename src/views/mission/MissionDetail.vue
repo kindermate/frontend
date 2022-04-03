@@ -239,7 +239,7 @@ export default {
           code: this.mission.code,
         };
         const { data } = await getRating(payload);
-        if (data.success) {
+        if (data.success && data.data !== null) {
           this.rating = data.data.rating;
           this.$store.commit('SET_RATING', this.rating);
         }

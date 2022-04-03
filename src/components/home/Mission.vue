@@ -1,19 +1,21 @@
 <template>
   <div class="mission">
     <h2 class="home-title">진행중인 미션</h2>
-    <div v-if="mission" class="box">
+    <div v-for="(member, index) in members" :key="index" class="box">
       <div class="info">
         <div class="child">
-          <ProfileBlock :user="mission.child" />
+          <ProfileBlock
+            :member="{ name: member.name, birth: member.birth, gender: member.gender, avatar: member.avatar }"
+          />
         </div>
         <div class="status">
           <CircleIcon>
             <img src="@/assets/img/calendar.svg" />
           </CircleIcon>
-          <span>{{ mission.week }}주차</span>
+          <span>{{ member.missions[0].week }}주차</span>
         </div>
       </div>
-      <div v-for="(mission, index) in mission.missions" :key="index" class="list">
+      <!-- <div v-for="(mission, index) in mission.missions" :key="index" class="list">
         <div class="subject">{{ mission.subject }}</div>
         <div class="item">
           <div class="name">
@@ -33,12 +35,12 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="buttons mt-5">
-        <router-link to="/mission" class="button is-fullwidth is-primary">미션 전체 보기</router-link>
-      </div>
+      </div> -->
     </div>
-    <div v-else class="empty box">현재 진행중인 미션이 없습니다.</div>
+    <div class="buttons mt-5">
+      <router-link to="/mission" class="button is-fullwidth is-primary">미션 전체 보기</router-link>
+    </div>
+    <!-- <div v-else class="empty box">현재 진행중인 미션이 없습니다.</div> -->
   </div>
 </template>
 
@@ -48,7 +50,7 @@ import CircleIcon from '@/components/common/CircleIcon.vue';
 
 export default {
   props: {
-    mission: Object,
+    members: Array,
   },
   components: {
     ProfileBlock,
@@ -66,7 +68,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.3rem;
+    // margin-bottom: 1.3rem;
     .status {
       display: flex;
       align-items: center;

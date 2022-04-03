@@ -1,30 +1,32 @@
 <template>
-  <div v-if="user" class="profile-block">
+  <div v-if="member" class="profile-block">
     <div class="image">
-      <ProfileImage :image="user.profile_image" size="40px" />
+      <AvatarImage :gender="member.gender" :avatarNumber="member.avatar" />
     </div>
     <div class="text">
-      <div class="name">{{ user.name }}</div>
+      <div class="name">{{ member.name }}</div>
       <div class="info">
-        <span class="gender">{{ transGender(user.gender) }}</span>
-        <span class="birth">({{ user.birth }})</span>
+        <span class="gender">{{ transGender(member.gender) }}</span>
+        <span class="birth"> / {{ member.birth | moment('YYYY년생') }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProfileImage from '@/components/user/ProfileImage.vue';
+import AvatarImage from '@/components/member/AvatarImage.vue';
+
 export default {
   props: {
-    user: Object,
+    member: Object,
   },
   components: {
-    ProfileImage,
+    AvatarImage,
   },
   methods: {
     transGender(gender) {
-      return gender;
+      if (gender === 'male') return this.$t('member.gender.male');
+      if (gender === 'female') return this.$t('member.gender.female');
     },
   },
 };
@@ -35,18 +37,28 @@ export default {
   display: flex;
   align-items: center;
   .image {
-    margin-right: 0.5rem;
+    margin-right: 10px;
+    img {
+      display: block;
+      width: 40px;
+    }
   }
   .text {
     .name {
       font-weight: $font-w600;
+      line-height: 1;
+      margin-bottom: 5px;
     }
     .info {
-      font-size: $font-xs;
+      line-height: 1;
+      font-size: $font-sm;
       color: $grey;
-      .gender {
-        margin-right: 2px;
-      }
+    }
+  }
+  &.is-dark {
+    color: #fff;
+    .info {
+      color: #fff;
     }
   }
 }
