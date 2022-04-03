@@ -52,6 +52,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   padding: 0 0.5rem;
+  z-index: 9;
 
   a {
     flex: 1;
