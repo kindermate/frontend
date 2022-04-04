@@ -2,6 +2,7 @@
   <section v-if="isLoaded" class="result-detail">
     <div class="member-info">
       <ProfileListBlock :member="memberInfo(member)" :dark="true" />
+      <a @click="downloadImage">다운로드</a>
     </div>
     <div class="result-content">
       <div class="date">
@@ -152,6 +153,8 @@
 </template>
 
 <script>
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 import { mapState } from 'vuex';
 import { getCommentary, getGuides } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
@@ -200,6 +203,12 @@ export default {
     }),
   },
   methods: {
+    downloadImage() {
+      const result = document.querySelector('main');
+      domtoimage.toBlob(result).then(function (blob) {
+        saveAs(blob, 'kindermate_result.png');
+      });
+    },
     fillData() {
       this.chartData1 = {
         labels: this.$t('result.ctt.partsNames'),
@@ -431,6 +440,7 @@ export default {
         text-align: right;
         font-weight: $font-w500;
         font-size: $font-sm;
+        padding-right: 10px;
       }
     }
     .part {

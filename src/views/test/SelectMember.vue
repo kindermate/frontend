@@ -58,6 +58,7 @@
                 type="text"
                 maxlength="8"
                 :placeholder="$t('test.addMember.placeholder.birth')"
+                @blur="checkBirth"
               />
             </div>
           </div>
@@ -93,6 +94,7 @@ export default {
       showModal: false,
       name: '',
       birth: '',
+      validateBirth: false,
       gender: '',
       selectComplete: false,
     };
@@ -111,6 +113,15 @@ export default {
     },
   },
   methods: {
+    checkBirth() {
+      const regex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      if (!regex.test(this.birth)) {
+        alert(this.$t('alert.join.unavailableBirth'));
+        this.validateBirth = false;
+      } else {
+        this.validateBirth = true;
+      }
+    },
     getGender(gender) {
       let result;
       if (gender === 'male') {
@@ -171,6 +182,10 @@ export default {
       }
       if (!this.birth) {
         alert(this.$t('alert.addMember.birth'));
+        return;
+      }
+      if (!this.validateBirth) {
+        alert(this.$t('alert.join.unavailableBirth'));
         return;
       }
       if (!this.gender) {

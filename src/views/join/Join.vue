@@ -44,7 +44,13 @@
       <div class="field">
         <label class="label">{{ $t('join.birth') }}</label>
         <div class="control">
-          <input v-model="birth" class="input" type="text" :placeholder="$t('join.placeholder.birth')" />
+          <input
+            v-model="birth"
+            class="input"
+            type="text"
+            :placeholder="$t('join.placeholder.birth')"
+            @blur="checkBirth"
+          />
         </div>
       </div>
       <!-- 성별 -->
@@ -132,14 +138,15 @@ export default {
   data() {
     return {
       username: '',
-      checkedUsername: false,
+      validateUsername: false,
       nickname: '',
       email: '',
       birth: '',
+      validateBirth: '',
       gender: '',
       password: '',
       passwordConfirm: '',
-      checkedPassword: false,
+      validatePassword: false,
       address1: '',
       address2: '',
       recommander: '',
@@ -161,22 +168,31 @@ export default {
         const { data } = await checkUsername(this.username);
         if (data.success) {
           alert(this.$t('alert.join.availableUsername'));
-          this.checkedUsername = true;
+          this.validateUsername = true;
         }
       } catch (error) {
         if (error.response.data.success === false) {
           alert(this.$t('alert.join.duplicateUsername'));
-          this.checkedUsername = false;
+          this.validateUsername = false;
         }
+      }
+    },
+    checkBirth() {
+      const regex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      if (!regex.test(this.birth)) {
+        alert(this.$t('alert.join.unavailableBirth'));
+        this.validateBirth = false;
+      } else {
+        this.validateBirth = true;
       }
     },
     checkPassword() {
       const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
       if (!regex.test(this.password)) {
         alert(this.$t('alert.join.unavailablePassword'));
-        this.checkedPassword = false;
+        this.validatePassword = false;
       } else {
-        this.checkedPassword = true;
+        this.validatePassword = true;
       }
     },
     async fetchAddress1() {
@@ -232,7 +248,7 @@ export default {
         alert(this.$t('alert.join.username'));
         return;
       }
-      if (!this.checkedUsername) {
+      if (!this.validateUsername) {
         alert(this.$t('alert.join.checkUsername'));
         return;
       }
@@ -246,6 +262,10 @@ export default {
       }
       if (!this.birth) {
         alert(this.$t('alert.join.birth'));
+        return;
+      }
+      if (!this.validateBirth) {
+        alert(this.$t('alert.join.unavailableBirth'));
         return;
       }
       if (!this.gender) {
@@ -264,7 +284,7 @@ export default {
         alert(this.$t('alert.join.diffPassword'));
         return;
       }
-      if (!this.checkedPassword) {
+      if (!this.validatePassword) {
         alert(this.$t('alert.join.notFormatPassword'));
         return;
       }

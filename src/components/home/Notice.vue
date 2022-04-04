@@ -4,6 +4,7 @@
     <ul class="notice-list">
       <li v-for="post in posts" :key="post._id">
         <router-link :to="`/notice/${post._id}`">
+          <div v-if="post.isImportant" class="important">{{ $t('notice.important') }}</div>
           <div class="subject">
             <span>
               {{ post.title }}
@@ -53,16 +54,28 @@ export default {
       border-radius: 5px;
       margin-bottom: 0.8rem;
       a {
+        position: relative;
         display: block;
         width: 100%;
         color: $black;
         padding: 1rem;
         .subject {
           font-weight: $font-w500;
+          padding-right: 40px;
         }
         .date {
           color: $grey;
           font-size: $font-sm;
+        }
+        .important {
+          position: absolute;
+          right: 1rem;
+          font-size: 11px;
+          border: 1px solid $orange;
+          color: $orange;
+          padding: 0.2rem;
+          line-height: 1;
+          border-radius: 3px;
         }
       }
     }

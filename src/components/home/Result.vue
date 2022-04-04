@@ -93,7 +93,7 @@ export default {
         labels: this.$t(`result.${data.test.toLowerCase()}.partsNames`),
         datasets: [
           {
-            label: 'Main One',
+            label: data.test,
             backgroundColor: [
               '#85C7D499',
               '#89B99999',
