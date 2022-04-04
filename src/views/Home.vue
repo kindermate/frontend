@@ -66,8 +66,14 @@ export default {
     async fetchResult() {
       try {
         const { data } = await getResultAll(this.userInfo.id);
+        // 검사 결과가 있는 member만 가져옴
+        const members = data.data.filter(member => {
+          if (member.results.length > 0) {
+            return member;
+          }
+        });
         if (data.success) {
-          this.membersWithResult = data.data;
+          this.membersWithResult = members;
         }
       } catch (error) {
         console.log(error);
