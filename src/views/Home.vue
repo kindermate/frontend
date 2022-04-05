@@ -3,7 +3,12 @@
     <Greeting :user="userInfo" />
     <Mission v-if="membersWithMission.length > 0" :members="membersWithMission" />
     <Result v-if="membersWithResult.length > 0" :members="membersWithResult" />
-    <div v-if="membersWithMission.length === 0 && membersWithResult.length === 0" class="empty box">
+    <div
+      v-if="
+        membersWithMission.length === 0 && membersWithResult.length === 0 && loadedMission && loadedResult
+      "
+      class="empty box"
+    >
       <img src="@/assets/img/theo-phone-standing.svg" />
       <h2>아직 검사를<br />진행하지 않으셨나요?</h2>
       <router-link to="/test" class="button is-primary is-fullwidth">검사 바로가기</router-link>
@@ -33,6 +38,8 @@ export default {
       userInfo: this.$store.state.currentUser,
       membersWithMission: [],
       membersWithResult: [],
+      loadedMission: false,
+      loadedResult: false,
       isLoaded: false,
     };
   },
@@ -58,6 +65,7 @@ export default {
         const { data } = await getRecentMission(this.userInfo.id);
         if (data.success) {
           this.membersWithMission = data.data;
+          this.loadedMission = true;
         }
       } catch (err) {
         console.log(err);
@@ -74,6 +82,7 @@ export default {
         });
         if (data.success) {
           this.membersWithResult = members;
+          this.loadedResult = true;
         }
       } catch (error) {
         console.log(error);
