@@ -176,6 +176,7 @@ export default {
         const payload = {
           mission: this.mission.id,
           content: this.memoContent,
+          week: this.mission.week,
         };
         const { data } = await createMemo(payload);
         console.log(data);

@@ -2,7 +2,7 @@
   <section v-if="isLoaded" class="result-detail">
     <div class="member-info">
       <ProfileListBlock :member="memberInfo(member)" :dark="true" />
-      <a @click="downloadImage">다운로드</a>
+      <!-- <a @click="downloadImage">다운로드</a> -->
     </div>
     <div class="result-content">
       <div class="date">
