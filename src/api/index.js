@@ -95,8 +95,16 @@ export const getMissionInfo = payload => {
   return instance.get(`/missions/weeks?week=${payload.week}&grade=${payload.grade}`);
 };
 
-export const getMemoAll = id => {
-  return instance.get(`/memos?mission=${id}`);
+export const updateMissionWeek = id => {
+  return instance.put(`/missions/next/${id}`);
+};
+
+export const missionComplete = id => {
+  return instance.put(`/missions/${id}`);
+};
+
+export const getMemoAll = payload => {
+  return instance.get(`/memos?mission=${payload.id}&week=${payload.week}`);
 };
 
 export const getMemoOne = id => {

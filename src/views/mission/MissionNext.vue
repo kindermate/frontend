@@ -6,7 +6,9 @@
         <div class="week">
           <b>{{ mission.week }}주차</b> / 12주
         </div>
-        <div class="date">{{ mission.createdAt | moment('add', '7 days', 'YYYY.MM.DD 24:00 까지') }}</div>
+        <div class="date">
+          {{ mission.startDate | moment('add', '1 weeks', 'YYYY년 MM월 DD일 A h시 m분 까지') }}
+        </div>
       </div>
     </div>
     <div class="mission-content">
@@ -17,29 +19,35 @@
         <div class="bar" ref="bar"></div>
       </div>
       <div class="week">
-        1주차 미션 달성률 <b>{{ getPercentage() }}%</b>
+        {{ mission.week }}주차 미션 달성률 <b>{{ getPercentage() }}%</b>
       </div>
       <div class="comment">당장은 아닐지 몰라도 언젠가 노력한 만큼의 보상을 꼭 받으실 것입니다.</div>
       <div class="next">
         다음 주차 미션은<br /><b>{{
-          mission.createdAt | moment('add', '8 days', 'YYYY년 MM월 DD일 09:00')
+          mission.startDate | moment('add', '7 days', 'YYYY년 MM월 DD일 A h시 m분 이후')
         }}</b
         >에 시작됩니다.
       </div>
       <div class="buttons mt-5">
-        <router-link to="/home" class="button is-fullwidth is-primary">다음 미션으로 이동</router-link>
+        <a v-if="availableNextMission" @click="nextMission" class="button is-fullwidth is-primary"
+          >다음 미션으로 이동</a
+        >
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import moment from 'moment';
 import { mapState } from 'vuex';
+import { updateMissionWeek } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 
 export default {
   data() {
-    return {};
+    return {
+      availableNextMission: false,
+    };
   },
   components: {
     ProfileListBlock,
@@ -51,15 +59,31 @@ export default {
     }),
   },
   methods: {
+    checkAvailableNextMission() {
+      const d = new Date();
+      const today = moment(d);
+      const diff = today.diff(this.mission.startDate, 'days', true);
+      if (diff > 7) {
+        this.availableNextMission = true;
+      }
+    },
     getPercentage() {
-      console.log(this.mission.rating);
       return this.mission.rating * 20;
+    },
+    async nextMission() {
+      try {
+        const { data } = await updateMissionWeek(this.mission.id);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   mounted() {
     setTimeout(() => {
       this.$refs.bar.style.width = this.mission.rating * 20 + '%';
     }, 300);
+    this.checkAvailableNextMission();
   },
 };
 </script>

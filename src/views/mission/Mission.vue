@@ -141,7 +141,10 @@ export default {
         mission: {
           ...this.members[index].missionSet,
           id: this.members[index].missions[0]._id,
+          startDate: this.members[index].missions[0].startDate,
           createdAt: this.members[index].missions[0].createdAt,
+          isComplete: this.members[index].missions[0].isComplete,
+          isFinished: this.members[index].missions[0].isFinished,
         },
       };
       this.$store.commit('SET_MISSION', payload);

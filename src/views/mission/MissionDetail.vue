@@ -6,7 +6,9 @@
         <div class="week">
           <b>{{ mission.week }}주차</b> / 12주
         </div>
-        <div class="date">{{ mission.createdAt | moment('add', '7 days', 'YYYY.MM.DD 24:00 까지') }}</div>
+        <div class="date">
+          {{ mission.startDate | moment('add', '1 weeks', 'YYYY년 MM월 DD일 A h시 m분 까지') }}
+        </div>
       </div>
     </div>
     <div class="mission-content">
@@ -38,7 +40,7 @@
       <!-- memo -->
       <div class="memo">
         <div class="top">
-          <h2>기록</h2>
+          <h2>{{ $t('mission.memo.name') }}</h2>
           <a @click="showMemoWriteModal = true">
             <img src="@/assets/img/icon_add.svg" />
             <span>{{ $t('mission.memo.add') }}</span>
@@ -122,7 +124,16 @@
 <script>
 import moment from 'moment';
 import { mapState } from 'vuex';
-import { createMemo, getRating, sendRating, getMemoAll, getMemoOne, updateMemo, deleteMemo } from '@/api';
+import {
+  createMemo,
+  getRating,
+  sendRating,
+  getMemoAll,
+  getMemoOne,
+  updateMemo,
+  deleteMemo,
+  missionComplete,
+} from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 import ModalBlank from '@/components/common/ModalBlank.vue';
 import StarRating from 'vue-star-rating';
@@ -161,7 +172,7 @@ export default {
     },
     async fetchMemo() {
       try {
-        const { data } = await getMemoAll(this.mission.id);
+        const { data } = await getMemoAll({ id: this.mission.id, week: this.mission.week });
         this.memos = data.data;
       } catch (error) {
         console.log(error);
@@ -199,6 +210,7 @@ export default {
         if (data.success) {
           alert(this.$t('mission.memo.successUpdate'));
           this.fetchMemo();
+          this.showMemoDetailModal = false;
         }
       } catch (error) {
         console.log(error);
@@ -229,8 +241,15 @@ export default {
         console.log(error);
       }
     },
-    submitMission() {
-      this.$router.push('/mission/next');
+    async submitMission() {
+      try {
+        const { data } = await missionComplete(this.mission.id);
+        if (data.success) {
+          this.$router.push('/mission/next');
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
     async fetchRating() {
       try {
