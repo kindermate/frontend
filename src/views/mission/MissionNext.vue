@@ -7,7 +7,7 @@
           <b>{{ mission.week }}주차</b> / 12주
         </div>
         <div class="date">
-          {{ mission.startDate | moment('add', '1 weeks', 'YYYY년 MM월 DD일 A h시 m분 까지') }}
+          {{ mission.startDate | moment('add', '1 weeks', 'YYYY.MM.DD h:m 까지') }}
         </div>
       </div>
     </div>
@@ -23,9 +23,7 @@
       </div>
       <div class="comment">당장은 아닐지 몰라도 언젠가 노력한 만큼의 보상을 꼭 받으실 것입니다.</div>
       <div class="next">
-        다음 주차 미션은<br /><b>{{
-          mission.startDate | moment('add', '7 days', 'YYYY년 MM월 DD일 A h시 m분 이후')
-        }}</b
+        다음 주차 미션은<br /><b>{{ mission.startDate | moment('add', '7 days', 'YYYY.M.D h:m 이후') }}</b
         >에 시작됩니다.
       </div>
       <div class="buttons mt-5">
