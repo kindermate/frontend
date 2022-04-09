@@ -7,7 +7,7 @@
           <b>{{ mission.week }}주차</b> / 12주
         </div>
         <div class="date">
-          {{ mission.startDate | moment('add', '1 weeks', 'YYYY.MM.DD h:m 까지') }}
+          {{ mission.startDate | moment('add', '1 weeks', 'YYYY.MM.DD hh:mm 까지') }}
         </div>
       </div>
     </div>
