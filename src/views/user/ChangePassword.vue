@@ -60,7 +60,10 @@ export default {
           password: this.password,
         };
         const { data } = await changePassword(payload);
-        console.log(data);
+        if (data.success) {
+          alert(this.$t('changePassword.alert.success'));
+          this.$router.push('/user-info');
+        }
       } catch (error) {
         console.log(error);
       }

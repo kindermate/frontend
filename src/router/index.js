@@ -79,6 +79,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "updateUserInfo" */ '@/views/user/ChangePassword.vue'),
   },
   {
+    path: '/find-account',
+    name: 'Find Account',
+    meta: {
+      pageTitle: i18n.t('findAccount.pageTitle'),
+      isBottomNav: false,
+    },
+    component: () => import(/* webpackChunkName: "findAccount" */ '@/views/user/FindAccount.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     meta: {

@@ -60,7 +60,7 @@ export default {
       display: flex;
       padding: 0.4rem 0;
       .key {
-        width: 100px;
+        width: 130px;
         color: $grey;
       }
     }

@@ -47,6 +47,15 @@ export const changePassword = payload => {
   return instance.put(`/users/change-password/${payload.id}`, payload);
 };
 
+// account
+export const findUsernameWithEmail = email => {
+  return instance.get(`/users/find-username/${email}`);
+};
+
+export const resetPasswordWithEmail = email => {
+  return instance.get(`/users/reset-password/${email}`);
+};
+
 // member
 export const getMemberAll = id => {
   return instance.get(`/members/${id}`);
@@ -101,6 +110,10 @@ export const updateMissionWeek = id => {
 
 export const missionComplete = id => {
   return instance.put(`/missions/${id}`);
+};
+
+export const getMessage = score => {
+  return instance.get(`/missions/message/${score}`);
 };
 
 export const getMemoAll = payload => {

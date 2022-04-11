@@ -21,7 +21,7 @@
       <div class="week">
         {{ mission.week }}주차 미션 달성률 <b>{{ getPercentage() }}%</b>
       </div>
-      <div class="comment">당장은 아닐지 몰라도 언젠가 노력한 만큼의 보상을 꼭 받으실 것입니다.</div>
+      <div class="comment">{{ message }}</div>
       <div class="next">
         다음 주차 미션은<br /><b>{{ mission.startDate | moment('add', '7 days', 'YYYY.M.D hh:mm 이후') }}</b
         >에 시작됩니다.
@@ -38,12 +38,13 @@
 <script>
 import moment from 'moment';
 import { mapState } from 'vuex';
-import { updateMissionWeek } from '@/api';
+import { updateMissionWeek, getMessage } from '@/api';
 import ProfileListBlock from '@/components/member/ProfileListBlock.vue';
 
 export default {
   data() {
     return {
+      message: '',
       availableNextMission: false,
     };
   },
@@ -76,12 +77,25 @@ export default {
         console.log(error);
       }
     },
+    async fetchMessage() {
+      const score = Math.ceil(this.mission.rating);
+      try {
+        const { data } = await getMessage(score);
+        if (data.success) {
+          this.message = data.data.message;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   mounted() {
     setTimeout(() => {
       this.$refs.bar.style.width = this.mission.rating * 20 + '%';
     }, 300);
     this.checkAvailableNextMission();
+    this.fetchMessage();
+    // rating 판단 후 클로드 멘트 로드
   },
 };
 </script>

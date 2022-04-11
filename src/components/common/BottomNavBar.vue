@@ -51,7 +51,7 @@ nav {
   background-color: $yellow;
   justify-content: space-around;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0.2rem 0.5rem 0.6rem;
   z-index: 9;
 
   a {

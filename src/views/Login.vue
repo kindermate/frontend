@@ -27,6 +27,11 @@
       <button class="button is-fullwidth is-warning">{{ $t('login.loginButton') }}</button>
     </form>
     <router-link to="/agreement" class="join button is-dark mt-6">{{ $t('login.joinButton') }}</router-link>
+    <div class="find-account mt-6">
+      <router-link to="/find-account" class="button is-fullwidth is-text"
+        >아이디/비밀번호를 잊으셨나요?</router-link
+      >
+    </div>
   </section>
 </template>
 

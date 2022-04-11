@@ -36,7 +36,7 @@ export default {
   margin: 1rem 0 3rem;
 
   .text {
-    font-size: $font-lg;
+    font-size: $font-md;
     .username {
       font-weight: $font-w600;
     }

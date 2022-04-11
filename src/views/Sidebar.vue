@@ -39,10 +39,10 @@
         <span>{{ $t('extraMenu.notice') }}</span>
         <img src="@/assets/img/icon_more.svg" />
       </router-link>
-      <router-link to="/">
+      <!-- <router-link to="/">
         <span>{{ $t('extraMenu.promotion') }}</span>
         <img src="@/assets/img/icon_more.svg" />
-      </router-link>
+      </router-link> -->
       <!-- <router-link to="/">
         <span>{{ $t('extraMenu.contact') }}</span>
         <img src="@/assets/img/icon_more.svg" />
