@@ -75,6 +75,9 @@ section.mission-detail {
 
 input {
   height: 3rem !important;
+  &::placeholder {
+    font-size: 14px;
+  }
 }
 
 select,
