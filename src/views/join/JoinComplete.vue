@@ -9,7 +9,7 @@
         <p v-html="$t('joinComplete.description')"></p>
       </template>
     </NotificationPage>
-    <router-link to="/" class="button is-primary is-fullwidth mt-5">홈으로 이동</router-link>
+    <router-link to="/login" class="button is-primary is-fullwidth mt-5">로그인</router-link>
   </section>
 </template>
 

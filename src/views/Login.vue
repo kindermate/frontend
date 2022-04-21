@@ -76,7 +76,7 @@ export default {
         const { data } = await getCurrentUser();
         if (data.success) {
           this.$store.commit('SET_USER', data.data);
-          this.$router.push('/');
+          this.$router.replace('/');
         }
       } catch (error) {
         console.log(error);
