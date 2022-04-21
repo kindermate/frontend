@@ -104,16 +104,11 @@ export default {
       this.showModal = false;
     },
     goNext() {
-      if (
-        this.isCheck1 === true &&
-        this.isCheck2 === true &&
-        this.isCheck3 === true &&
-        this.isCheck4 === true &&
-        this.isCheck5 === true
-      ) {
+      // 필수 약관 동의 체크
+      if (this.isCheck1 === true && this.isCheck2 === true) {
         this.$router.push('/join');
       } else {
-        alert('모든 약관에 동의해주세요');
+        alert('필수 약관에 동의해주세요');
         return;
       }
     },

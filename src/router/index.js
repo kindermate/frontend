@@ -338,6 +338,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  // 로그인 후 로그인페이지 접근 시
+  if (to.name === 'Login') {
+    if ($store.state.accessToken) next('/');
+  }
   // 권한이 필요한 페이지
   if (to.meta.auth) {
     if (!$store.state.accessToken) {

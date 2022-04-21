@@ -312,6 +312,9 @@ export default {
         }
       } catch (error) {
         console.log(error.response.data.message);
+        if (error.response.data.message === 'Email already exists.') {
+          alert(this.$t('join.placeholder.existEmail'));
+        }
       }
     },
   },
