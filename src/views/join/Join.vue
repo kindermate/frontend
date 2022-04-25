@@ -202,6 +202,7 @@ export default {
         );
         if (response.status === 200) {
           this.addressList1 = response.data.regcodes;
+          this.addressList1.splice(7, 0, { code: '3600000000', name: '세종특별자치시' });
         }
       } catch (error) {
         console.log(error);
@@ -230,7 +231,11 @@ export default {
         if (response.status === 200) {
           this.addressList2 = [];
           response.data.regcodes.forEach(item => {
-            this.addressList2.push(item.name.split(' ')[1]);
+            if (this.address1 === '세종특별자치시') {
+              this.addressList2.push(item.name);
+            } else {
+              this.addressList2.push(item.name.split(' ')[1]);
+            }
           });
         }
         console.log(response);
