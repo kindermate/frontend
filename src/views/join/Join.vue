@@ -14,6 +14,7 @@
               class="input"
               type="text"
               :placeholder="$t('join.placeholder.username')"
+              @keydown.space.prevent
             />
           </div>
           <div class="control">
@@ -37,7 +38,13 @@
       <div class="field">
         <label class="label">{{ $t('join.email') }}</label>
         <div class="control">
-          <input v-model="email" class="input" type="email" :placeholder="$t('join.placeholder.email')" />
+          <input
+            v-model="email"
+            class="input"
+            type="email"
+            :placeholder="$t('join.placeholder.email')"
+            @keydown.space.prevent
+          />
         </div>
       </div>
       <!-- 생년월일 -->
@@ -76,6 +83,7 @@
             type="password"
             :placeholder="$t('join.placeholder.password')"
             @blur="checkPassword"
+            @keydown.space.prevent
           />
         </div>
       </div>
@@ -88,6 +96,7 @@
             class="input"
             type="password"
             :placeholder="$t('join.placeholder.passwordConfirm')"
+            @keydown.space.prevent
           />
         </div>
       </div>
