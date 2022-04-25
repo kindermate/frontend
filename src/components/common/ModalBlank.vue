@@ -18,7 +18,7 @@
   .modal-content {
     padding: 2rem;
     .box {
-      padding: 2rem 1.5rem;
+      padding: 1.3rem 1.1rem;
     }
   }
 }

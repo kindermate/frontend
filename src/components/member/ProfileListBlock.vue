@@ -53,7 +53,7 @@ export default {
     }
     .info {
       line-height: 1;
-      font-size: $font-sm;
+      font-size: $font-xs;
       color: $grey;
     }
   }

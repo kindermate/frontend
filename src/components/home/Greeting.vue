@@ -40,6 +40,9 @@ export default {
     .username {
       font-weight: $font-w600;
     }
+    .greetings {
+      word-break: keep-all;
+    }
   }
 
   .image {

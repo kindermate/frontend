@@ -20,13 +20,6 @@
             </div>
             <div v-for="task in member.missionSet.tasks" :key="task._id" class="task">
               <div class="name">{{ task.title }}</div>
-              <div class="term">
-                <div class="image">
-                  <img src="@/assets/img/calendar.svg" />
-                </div>
-                <span>{{ $t(`mission.term.${task.term}`) }}</span>
-              </div>
-              <div class="rating">{{ task.rating }}</div>
             </div>
           </div>
         </div>
@@ -197,23 +190,12 @@ export default {
             display: flex;
             background-color: $grey-light-xx;
             margin-bottom: 0.5rem;
-            padding: 0.8rem;
+            padding: 0.6rem 1rem;
             border-radius: 5px;
+            font-size: $font-sm;
 
             &:last-child {
               margin-bottom: 0;
-            }
-            .term {
-              display: flex;
-              align-items: center;
-              margin-left: auto;
-              font-size: $font-sm;
-              width: 50px;
-              opacity: 0.4;
-              .image {
-                width: 15px;
-                margin-right: 5px;
-              }
             }
           }
         }

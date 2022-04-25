@@ -39,6 +39,6 @@ export default {
   opacity: 0;
 }
 .page-enter-active {
-  transition: transform 0.4s ease, opacity 0.3s ease-out;
+  transition: transform 0.3s ease, opacity 0.2s ease-out;
 }
 </style>

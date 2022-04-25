@@ -13,6 +13,9 @@
     </div>
     <div class="mission-content">
       <div class="subject">
+        <img v-if="mission.code === 'CTT'" src="@/assets/img/icon_result_compass.svg" />
+        <img v-if="mission.code === 'MAT'" src="@/assets/img/icon_result_color.svg" />
+        <img v-if="mission.code === 'PBT'" src="@/assets/img/icon_result_family.svg" />
         <b>{{ $t(`mission.code.${mission.code}`) }}</b> - {{ mission.name }}
       </div>
       <div class="task-list">
@@ -28,11 +31,15 @@
             </div>
           </div>
           <div v-if="getMemberAge < 84" class="task-content">
-            {{ task.infant }}
+            <ol>
+              <li v-for="(task, index) in createTasks(task.infant)" :key="index">{{ task }}</li>
+            </ol>
             <hr />
           </div>
           <div v-else class="task-content">
-            {{ task.student }}
+            <ol>
+              <li v-for="(task, index) in createTasks(task.student)" :key="index">{{ task }}</li>
+            </ol>
             <hr />
           </div>
         </div>
@@ -46,6 +53,10 @@
             <span>{{ $t('mission.memo.add') }}</span>
           </a>
         </div>
+        <div class="notice">
+          <img src="@/assets/img/icon_done.svg" />
+          <p>{{ $t('mission.memo.description') }}</p>
+        </div>
         <ul v-if="memos.length" class="memo-list">
           <li @click="clickMemo(memo._id)" v-for="memo in memos" :key="memo._id">
             <div class="content">{{ memo.content }}</div>
@@ -54,25 +65,30 @@
         </ul>
         <div v-else class="empty">{{ $t('mission.memo.empty') }}</div>
       </div>
+      <hr />
       <!-- rating -->
       <div class="rating">
         <div class="top">
           <h2>{{ $t('mission.rating.name') }}</h2>
-          <div class="star">
-            <StarRating
-              v-model="rating"
-              :increment="0.5"
-              :show-rating="false"
-              :star-size="50"
-              inactive-color="#dfe2e0"
-              active-color="#f87761"
-              @rating-selected="sendRating"
-            />
-          </div>
-          <div class="comment">
-            <span class="percentage"> {{ getPercentage(rating) }}% </span>
-            {{ $t('mission.rating.comment') }}
-          </div>
+        </div>
+        <div class="notice">
+          <img src="@/assets/img/icon_done.svg" />
+          <p>{{ $t('mission.rating.description') }}</p>
+        </div>
+        <div class="star">
+          <StarRating
+            v-model="rating"
+            :increment="0.5"
+            :show-rating="false"
+            :star-size="50"
+            inactive-color="#dfe2e0"
+            active-color="#f87761"
+            @rating-selected="sendRating"
+          />
+        </div>
+        <div class="comment">
+          <span class="percentage"> {{ getPercentage(rating) }}% </span>
+          {{ $t('mission.rating.comment') }}
         </div>
       </div>
       <!-- confirm -->
@@ -169,6 +185,13 @@ export default {
   methods: {
     getPercentage(value) {
       return value * 20;
+    },
+    createTasks(tasks) {
+      const taskArray = tasks.split('\n');
+      const newTask = taskArray.map(task => {
+        return task.substr(3);
+      });
+      return newTask;
     },
     async fetchMemo() {
       try {
@@ -309,7 +332,8 @@ export default {
         line-height: 1.2;
       }
       .date {
-        font-size: $font-sm;
+        font-size: $font-xs;
+        opacity: 0.6;
       }
     }
   }
@@ -319,48 +343,75 @@ export default {
     padding: 2rem 2rem 120px;
     border-radius: 2rem 2rem 0 0;
     .subject {
-      font-size: $font-lg;
+      display: flex;
+      align-items: center;
+      font-size: $font-md;
       margin-bottom: 1.5rem;
+      img {
+        width: 28px;
+        margin-right: 5px;
+      }
     }
     .task-list {
       .task-title {
         position: relative;
-        background-color: $grey-light-xx;
-        padding: 1.5rem;
+        border: 1px solid $grey-light;
+        padding: 1.5rem 1.5rem 3rem;
         text-align: center;
         margin-bottom: 1.5rem;
+        border-radius: 10px;
+        overflow: hidden;
         h3 {
           font-size: $font-lg;
           font-weight: $font-w600;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.2rem;
+          color: $black;
         }
         p {
-          color: $grey;
+          color: $black;
           word-break: keep-all;
           line-height: 1.4;
         }
         .term {
           position: absolute;
-          top: 1rem;
-          right: 1rem;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          text-align: center;
           display: flex;
+          justify-content: center;
           align-items: center;
           color: $orange;
-          font-size: $font-sm;
+          font-size: $font-xs;
           font-weight: $font-w600;
           line-height: 1;
+          background-color: $grey-light-xx;
+          padding: 0.5rem;
           .image {
-            width: 14px;
+            width: 12px;
             margin-right: 3px;
           }
         }
       }
       .task-content {
         white-space: pre-wrap;
-        hr {
-          margin: 2rem 0;
+        ol {
+          margin-left: 20px;
+          li {
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            &::marker {
+              color: $orange;
+              font-weight: $font-w600;
+            }
+          }
         }
       }
+    }
+
+    hr {
+      margin: 3rem 0;
     }
 
     .memo {
@@ -425,6 +476,24 @@ export default {
       .empty {
         text-align: center;
         padding: 2rem;
+        color: $grey;
+      }
+    }
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      border: 1px solid $grey-light;
+      // background-color: $grey-light-xx;
+      padding: 0.7rem;
+      border-radius: 5px;
+      margin: 0.5rem 0 1.5rem;
+      img {
+        width: 15px;
+        margin-right: 4px;
+      }
+      p {
+        font-size: $font-xs;
+        line-height: 1.3;
         color: $grey;
       }
     }

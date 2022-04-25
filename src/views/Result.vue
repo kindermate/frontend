@@ -135,7 +135,18 @@ export default {
       cursor: pointer;
       .info {
         display: flex;
-        font-size: $font-sm;
+        font-size: $font-xs;
+        @include small {
+          flex-direction: column;
+          .icon {
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+          .date {
+            margin-bottom: 5px;
+            margin-right: 0 !important;
+          }
+        }
         .date {
           display: flex;
           align-items: center;
@@ -155,7 +166,10 @@ export default {
       .info {
         display: flex;
         align-items: center;
-        font-size: $font-sm;
+        font-size: $font-xs;
+        @include small {
+          display: none;
+        }
         .date {
           display: flex;
           align-items: center;
@@ -183,11 +197,15 @@ export default {
         border-radius: 8px;
         margin-bottom: 1rem;
         cursor: pointer;
+        &:last-child {
+          margin-bottom: 0;
+        }
         .date {
           font-weight: $font-w600;
+          font-size: $font-xs;
         }
         .view {
-          font-size: $font-sm;
+          font-size: $font-xs;
           color: $grey;
         }
       }

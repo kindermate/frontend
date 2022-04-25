@@ -73,6 +73,10 @@ export default {
       try {
         const { data } = await updateMissionWeek(this.mission.id);
         console.log(data);
+        if (data.success) {
+          this.$router.push('/mission');
+        }
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
