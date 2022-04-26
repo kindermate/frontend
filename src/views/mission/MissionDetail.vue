@@ -188,7 +188,16 @@ export default {
     },
     createTasks(tasks) {
       const taskArray = tasks.split('\n');
-      const newTask = taskArray.map(task => {
+      // 공백 제거
+      const filteredArray = taskArray.filter(task => {
+        if (task.length > 1) {
+          return task;
+        } else {
+          return;
+        }
+      });
+      // 앞 번호 제거
+      const newTask = filteredArray.map(task => {
         return task.substr(3);
       });
       return newTask;
