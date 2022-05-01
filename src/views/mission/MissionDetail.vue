@@ -4,7 +4,7 @@
       <ProfileListBlock :member="member" :dark="true" />
       <div class="day">
         <div class="week">
-          <b>{{ mission.week }}주차</b> / 12주
+          <b>{{ mission.items[0].week }}주차</b> / 12주
         </div>
         <div class="date">
           {{ mission.startDate | moment('add', '1 weeks', 'YYYY.MM.DD hh:mm 까지') }}
@@ -12,38 +12,41 @@
       </div>
     </div>
     <div class="mission-content">
-      <div class="subject">
-        <img v-if="mission.code === 'CTT'" src="@/assets/img/icon_result_compass.svg" />
-        <img v-if="mission.code === 'MAT'" src="@/assets/img/icon_result_color.svg" />
-        <img v-if="mission.code === 'PBT'" src="@/assets/img/icon_result_family.svg" />
-        <b>{{ $t(`mission.code.${mission.code}`) }}</b> - {{ mission.name }}
-      </div>
-      <div class="task-list">
-        <div v-for="task in mission.tasks" :key="task._id" class="task">
-          <div class="task-title">
-            <h3>{{ task.title }}</h3>
-            <p>{{ task.description }}</p>
-            <div class="term">
-              <div class="image">
-                <img src="@/assets/img/icon_calendar_orange.svg" />
+      <div v-for="(item, index) in mission.items" :key="index" class="mission-item">
+        <div class="subject">
+          <img v-if="item.code === 'CTT'" src="@/assets/img/icon_result_compass.svg" />
+          <img v-if="item.code === 'MAT'" src="@/assets/img/icon_result_color.svg" />
+          <img v-if="item.code === 'PBT'" src="@/assets/img/icon_result_family.svg" />
+          <b>{{ $t(`mission.code.${item.code}`) }}</b> - {{ item.name }}
+        </div>
+        <div class="task-list">
+          <div v-for="task in item.tasks" :key="task._id" class="task">
+            <div class="task-title">
+              <h3>{{ task.title }}</h3>
+              <p>{{ task.description }}</p>
+              <div class="term">
+                <div class="image">
+                  <img src="@/assets/img/icon_calendar_orange.svg" />
+                </div>
+                <span>{{ $t(`mission.term.${task.term}`) }}</span>
               </div>
-              <span>{{ $t(`mission.term.${task.term}`) }}</span>
             </div>
-          </div>
-          <div v-if="getMemberAge < 84" class="task-content">
-            <ol>
-              <li v-for="(task, index) in createTasks(task.infant)" :key="index">{{ task }}</li>
-            </ol>
-            <hr />
-          </div>
-          <div v-else class="task-content">
-            <ol>
-              <li v-for="(task, index) in createTasks(task.student)" :key="index">{{ task }}</li>
-            </ol>
-            <hr />
+            <div v-if="getMemberAge < 84" class="task-content">
+              <ol>
+                <li v-for="(task, index) in createTasks(task.infant)" :key="index">{{ task }}</li>
+              </ol>
+              <hr />
+            </div>
+            <div v-else class="task-content">
+              <ol>
+                <li v-for="(task, index) in createTasks(task.student)" :key="index">{{ task }}</li>
+              </ol>
+              <hr />
+            </div>
           </div>
         </div>
       </div>
+
       <!-- memo -->
       <div class="memo">
         <div class="top">
@@ -204,7 +207,7 @@ export default {
     },
     async fetchMemo() {
       try {
-        const { data } = await getMemoAll({ id: this.mission.id, week: this.mission.week });
+        const { data } = await getMemoAll({ id: this.mission.id, week: this.mission.items[0].week });
         this.memos = data.data;
       } catch (error) {
         console.log(error);
@@ -219,7 +222,7 @@ export default {
         const payload = {
           mission: this.mission.id,
           content: this.memoContent,
-          week: this.mission.week,
+          week: this.mission.items[0].week,
         };
         const { data } = await createMemo(payload);
         console.log(data);
@@ -287,8 +290,8 @@ export default {
       try {
         const payload = {
           mission: this.mission.id,
-          week: this.mission.week,
-          code: this.mission.code,
+          week: this.mission.items[0].week,
+          // code: this.mission.code,
         };
         const { data } = await getRating(payload);
         if (data.success && data.data !== null) {
@@ -303,8 +306,8 @@ export default {
       try {
         const payload = {
           mission: this.mission.id,
-          week: this.mission.week,
-          code: this.mission.code,
+          week: this.mission.items[0].week,
+          // code: this.mission.code,
           rating: this.rating,
         };
         const { data } = await sendRating(payload);
@@ -359,6 +362,9 @@ export default {
       img {
         width: 28px;
         margin-right: 5px;
+      }
+      b {
+        margin-right: 0.4rem;
       }
     }
     .task-list {

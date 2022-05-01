@@ -142,6 +142,7 @@
 <script>
 import { join, checkUsername } from '@/api';
 import axios from 'axios';
+import moment from 'moment';
 
 export default {
   data() {
@@ -193,6 +194,12 @@ export default {
         this.validateBirth = false;
       } else {
         this.validateBirth = true;
+      }
+      const today = moment(new Date());
+      const diff = today.diff(moment(this.birth), 'years');
+      if (diff <= 10) {
+        alert(this.$t('alert.join.myDateofBirth'));
+        this.birth = '';
       }
     },
     checkPassword() {

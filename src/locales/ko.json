@@ -91,7 +91,8 @@
       "duplicateUsername": "사용이 불가능한 아이디입니다.",
       "unavailablePassword": "숫자를 포함한 영문 8자리를 입력해주세요",
       "notFormatPassword": "비밀번호가 형식에 맞지 않습니다.",
-      "unavailableBirth": "생년월일이 형식에 맞지 않습니다."
+      "unavailableBirth": "생년월일이 형식에 맞지 않습니다.",
+      "myDateofBirth": "부모(양육자) 본인의 생년월일을 입력하세요."
     },
     "login": {
       "username": "아이디를 입력하세요.",

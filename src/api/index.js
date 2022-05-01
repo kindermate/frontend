@@ -101,7 +101,9 @@ export const getMembersWithMissions = id => {
 };
 
 export const getMissionInfo = payload => {
-  return instance.get(`/missions/weeks?week=${payload.week}&grade=${payload.grade}`);
+  return instance.get(
+    `/missions/weeks?code=${payload.code ? payload.code : ''}&week=${payload.week}&grade=${payload.grade}`,
+  );
 };
 
 export const updateMissionWeek = id => {
@@ -137,7 +139,7 @@ export const deleteMemo = id => {
 };
 
 export const getRating = payload => {
-  return instance.get(`/ratings?mission=${payload.mission}&week=${payload.week}&code=${payload.code}`);
+  return instance.get(`/ratings?mission=${payload.mission}&week=${payload.week}`);
 };
 
 export const sendRating = payload => {

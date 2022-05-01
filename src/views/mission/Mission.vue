@@ -10,16 +10,32 @@
             <CircleIcon>
               <img src="@/assets/img/time.svg" />
             </CircleIcon>
-            <span>{{ member.missionSet.week }}주차</span>
+            <!-- 단일 미션 주차 -->
+            <span v-if="!Array.isArray(member.missionSet)">{{ member.missionSet.week }}주차</span>
+            <!-- 복수 미션 주차 -->
+            <span v-else>{{ member.missionSet[0].week }}주차</span>
           </div>
         </div>
         <div v-if="member.missionSet" class="mission-container">
-          <div class="mission">
+          <!-- 단일 미션 주차 -->
+          <div v-if="!Array.isArray(member.missionSet)" class="mission">
             <div class="head">
               {{ $t(`mission.code.${member.missionSet.code}`) }} - {{ member.missionSet.name }}
             </div>
-            <div v-for="task in member.missionSet.tasks" :key="task._id" class="task">
-              <div class="name">{{ task.title }}</div>
+            <div class="task">
+              <div class="name" v-for="task in member.missionSet.tasks" :key="task._id">{{ task.title }}</div>
+            </div>
+          </div>
+          <!-- 복수 미션 주차 -->
+          <div v-else class="missions">
+            <div class="help">
+              5~10주차 미션은 기질검사(CTT)와 다면적성검사(MAT)의 미션이 동시에 진행됩니다.
+            </div>
+            <div v-for="(mission, index) in member.missionSet" :key="index" class="mission">
+              <div class="head">{{ $t(`mission.code.${mission.code}`) }} - {{ mission.name }}</div>
+              <div class="task">
+                <div class="name" v-for="task in mission.tasks" :key="task._id">{{ task.title }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -91,6 +107,30 @@ export default {
       if (week === 2) return this.members[index].resultSet['PBT'][1];
       if (week === 3) return this.members[index].resultSet['PBT'][2];
       if (week === 4) return this.members[index].resultSet['PBT'][3];
+      if (week === 5) {
+        return [this.members[index].resultSet['CTT'][0], this.members[index].resultSet['MAT'][0]];
+      }
+      if (week === 6) {
+        return [this.members[index].resultSet['CTT'][1], this.members[index].resultSet['MAT'][1]];
+      }
+      if (week === 7) {
+        return [this.members[index].resultSet['CTT'][2], this.members[index].resultSet['MAT'][2]];
+      }
+      if (week === 8) {
+        return [this.members[index].resultSet['CTT'][3], this.members[index].resultSet['MAT'][3]];
+      }
+      if (week === 9) {
+        return [this.members[index].resultSet['CTT'][4], this.members[index].resultSet['MAT'][4]];
+      }
+      if (week === 10) {
+        return [this.members[index].resultSet['CTT'][5], this.members[index].resultSet['MAT'][5]];
+      }
+      if (week === 11) {
+        return this.members[index].resultSet['MAT'][6];
+      }
+      if (week === 12) {
+        return this.members[index].resultSet['MAT'][7];
+      }
     },
     async fetchMissionInfo() {
       let count = 0;
@@ -98,17 +138,46 @@ export default {
         if (member.missions.length > 0) {
           const week = member.missions[0].week;
           const grade = this.getGrade(week, index);
-          try {
-            const {
-              data: { data },
-            } = await getMissionInfo({ week: week, grade: grade });
-            this.members[index]['missionSet'] = data;
-          } catch (error) {
-            console.log(error);
-          } finally {
-            count = count + 1;
-            if (count === this.members.length) {
-              this.isLoaded = true;
+
+          if (typeof grade == 'object') {
+            // 5주 ~ 10주 까지 미션 2가지 제공
+            try {
+              const response1 = await getMissionInfo({ code: 'CTT', week: week, grade: grade[0] });
+              this.members[index]['missionSet'] = [];
+              this.members[index]['missionSet'].push(response1.data.data);
+              const response2 = await getMissionInfo({ code: 'MAT', week: week, grade: grade[1] });
+              this.members[index]['missionSet'].push(response2.data.data);
+            } catch (error) {
+              console.log(error);
+            } finally {
+              count = count + 1;
+              if (count === this.members.length) {
+                this.isLoaded = true;
+              }
+            }
+          } else {
+            // 미션 1개일때 처리
+            try {
+              if (week < 5) {
+                // 5주 미만 일때는 PBT
+                const {
+                  data: { data },
+                } = await getMissionInfo({ code: 'PBT', week: week, grade: grade });
+                this.members[index]['missionSet'] = data;
+              } else {
+                // 5주 이상(실제로는 11주 이상) 일때는 MAT
+                const {
+                  data: { data },
+                } = await getMissionInfo({ code: 'MAT', week: week, grade: grade });
+                this.members[index]['missionSet'] = data;
+              }
+            } catch (error) {
+              console.log(error);
+            } finally {
+              count = count + 1;
+              if (count === this.members.length) {
+                this.isLoaded = true;
+              }
             }
           }
         } else {
@@ -132,7 +201,9 @@ export default {
           avatar: this.members[index].avatar,
         },
         mission: {
-          ...this.members[index].missionSet,
+          items: Array.isArray(this.members[index].missionSet)
+            ? [...this.members[index].missionSet]
+            : [this.members[index].missionSet],
           id: this.members[index].missions[0]._id,
           startDate: this.members[index].missions[0].startDate,
           createdAt: this.members[index].missions[0].createdAt,
@@ -179,23 +250,41 @@ export default {
       }
 
       .mission-container {
+        .help {
+          border-top: 1px solid $grey-light;
+          margin-top: 0.8rem;
+          padding: 0.8rem 0.5rem;
+          word-break: keep-all;
+          line-height: 1.3;
+          color: $grey;
+        }
         .mission {
-          margin-top: 1rem;
+          margin-top: 1.2rem;
           .head {
             font-size: $font-sm;
             color: $grey;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
           }
           .task {
-            display: flex;
-            background-color: $grey-light-xx;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
             margin-bottom: 0.5rem;
-            padding: 0.6rem 1rem;
             border-radius: 5px;
-            font-size: $font-sm;
+            font-size: $font-xs;
 
             &:last-child {
               margin-bottom: 0;
+            }
+
+            .name {
+              display: block;
+              padding: 0.5rem 0.6rem;
+              border-radius: 4px;
+              border: 1px solid $grey-light;
+              &:last-child {
+                margin-bottom: 0;
+              }
             }
           }
         }
