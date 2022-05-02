@@ -145,8 +145,10 @@ export default {
               const response1 = await getMissionInfo({ code: 'CTT', week: week, grade: grade[0] });
               this.members[index]['missionSet'] = [];
               this.members[index]['missionSet'].push(response1.data.data);
+              console.log(index, response1.data.data);
               const response2 = await getMissionInfo({ code: 'MAT', week: week, grade: grade[1] });
               this.members[index]['missionSet'].push(response2.data.data);
+              console.log(index, response2.data.data);
             } catch (error) {
               console.log(error);
             } finally {
