@@ -42,7 +42,8 @@
     "password": "비밀번호",
     "passwordConfirm": "비밀번호 확인",
     "address": "주소",
-    "recommander": "추천인 코드",
+    "type": "플레이팩토 회원이세요?",
+    "findOut": "킨더메이트는 어떻게 알게되셨나요?",
     "placeholder": {
       "username": "아이디를 입력하세요 (5자 이상)",
       "nickname": "닉네임을 입력하세요",
@@ -55,7 +56,7 @@
       "password": "숫자를 포함한 영문 8자리",
       "passwordConfirm": "숫자를 포함한 영문 8자리",
       "address": "선택하세요",
-      "recommander": "안내받으신 코드를 입력해 주세요"
+      "findOutEtcText": "기타 내용을 입력해주세요."
     }
   },
   "joinComplete": {
@@ -92,7 +93,9 @@
       "unavailablePassword": "숫자를 포함한 영문 8자리를 입력해주세요",
       "notFormatPassword": "비밀번호가 형식에 맞지 않습니다.",
       "unavailableBirth": "생년월일이 형식에 맞지 않습니다.",
-      "myDateofBirth": "부모(양육자) 본인의 생년월일을 입력하세요."
+      "myDateofBirth": "부모(양육자) 본인의 생년월일을 입력하세요.",
+      "type": "플레이팩토 회원여부를 선택해주세요.",
+      "findOut": "킨더메이트를 알게된 경로를 선택해주세요."
     },
     "login": {
       "username": "아이디를 입력하세요.",

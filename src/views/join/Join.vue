@@ -122,15 +122,47 @@
           </div>
         </div>
       </div>
-      <!-- 추천인 코드 -->
+      <!-- 회원 타입 -->
       <div class="field">
-        <label class="label">{{ $t('join.recommander') }}</label>
+        <label class="label">{{ $t('join.type') }}</label>
         <div class="control">
+          <div class="select">
+            <select v-model="type">
+              <option disabled value="">선택하세요</option>
+              <option value="playfacto">수학학원에서 배워요.</option>
+              <option value="ekinder">영어학원에서 배워요.</option>
+              <option value="kinder">유치원, 어린이집에서 배워요.</option>
+              <option value="school">학교에서 배워요.</option>
+              <option value="home">집에서 공부해요.</option>
+              <option value="none">회원이 아니에요.</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- 킨더메이트를 알게된 경로 -->
+      <div class="field">
+        <label class="label">{{ $t('join.findOut') }}</label>
+        <div class="control">
+          <div class="select">
+            <select v-model="findOut">
+              <option disabled value="">선택하세요</option>
+              <option value="teacher">학원, 유치원, 어린이집 선생님 소개</option>
+              <option value="recommend">지인 소개, 후기 추천</option>
+              <option value="online ad">온라인광고 (네이버, 구글 등)</option>
+              <option value="sns">SNS (인스타그램, 블로그)</option>
+              <option value="cafe">지역카페, 맘카페</option>
+              <option value="playfacto">플레이팩토 카페, 홈페이지</option>
+              <option value="searching">검색 (포털, 스토어 등)</option>
+              <option value="etc">기타</option>
+            </select>
+          </div>
+        </div>
+        <div v-if="showFindOutEtcText" class="control mt-2">
           <input
-            v-model="recommander"
-            class="input"
             type="text"
-            :placeholder="$t('join.placeholder.recommander')"
+            v-model="findOutEtcText"
+            class="input"
+            :placeholder="$t('join.placeholder.findOutEtcText')"
           />
         </div>
       </div>
@@ -159,10 +191,20 @@ export default {
       validatePassword: false,
       address1: '',
       address2: '',
-      recommander: '',
       addressList1: '',
       addressList2: [],
+      type: '',
+      findOut: '',
+      findOutEtcText: '',
+      showFindOutEtcText: false,
     };
+  },
+  watch: {
+    findOut() {
+      if (this.findOut === 'etc') {
+        this.showFindOutEtcText = true;
+      }
+    },
   },
   methods: {
     async checkUsername() {
@@ -253,6 +295,7 @@ export default {
               this.addressList2.push(item.name.split(' ')[1]);
             }
           });
+          this.addressList2.sort();
         }
         console.log(response);
       } catch (error) {
@@ -313,6 +356,14 @@ export default {
         alert(this.$t('alert.join.address'));
         return;
       }
+      if (!this.type) {
+        alert(this.$t('alert.join.type'));
+        return;
+      }
+      if (!this.findOut) {
+        alert(this.$t('alert.join.findOut'));
+        return;
+      }
 
       // join process
       try {
@@ -325,7 +376,8 @@ export default {
           password: this.password,
           address1: this.address1,
           address2: this.address2,
-          recommander: this.recommander,
+          type: this.type,
+          findOut: this.findOutEtcText ? this.findOut + ':' + this.findOutEtcText : this.findOut,
         };
         const { data } = await join(payload);
         if (data.success) {
