@@ -61,6 +61,10 @@ export const getMemberAll = id => {
   return instance.get(`/members/${id}`);
 };
 
+export const getMemberAllWithSimpleTestResults = id => {
+  return instance.get(`/members/simple-test-results/${id}`);
+};
+
 export const createMember = payload => {
   return instance.post('/members/create', payload);
 };
@@ -144,6 +148,39 @@ export const getRating = payload => {
 
 export const sendRating = payload => {
   return instance.post('/ratings', payload);
+};
+
+// simple test
+export const getSimpleTestAll = () => {
+  return instance.get('/simple-tests');
+};
+
+export const getSimpleTestOne = id => {
+  return instance.get(`/simple-tests/${id}`);
+};
+
+export const getSimpleTestOneByCode = code => {
+  return instance.get(`/simple-tests/code/${code}`);
+};
+
+export const getSimpleTestQuestion = code => {
+  return instance.get(`/simple-tests/question/${code}`);
+};
+
+export const saveSimpleTestResult = payload => {
+  return instance.post('/simple-tests/result', payload);
+};
+
+export const getSimpleTestResultOne = id => {
+  return instance.get(`/simple-tests/result/${id}`);
+};
+
+export const getSimpleTestResultComment = payload => {
+  return instance.get(`/simple-tests/result/comment?code=${payload.code}&grade=${payload.grade}`);
+};
+
+export const getSimpleTestResultAll = payload => {
+  return instance.get(`/simple-tests/result/all?code=${payload.code}&owner=${payload.owner}`);
 };
 
 // post

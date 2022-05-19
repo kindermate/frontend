@@ -212,7 +212,51 @@ const routes = [
       pageTitle: i18n.t('psycheck.pageTitle'),
       isBottomNav: true,
     },
-    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/PsyCheck.vue'),
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/SimpleTest.vue'),
+  },
+  {
+    path: '/psycheck/select',
+    name: 'Psy Check Select Member',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('psycheck.pageTitle'),
+      bgColor: '#FFF',
+      isBottomNav: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "psycheckSelectMember" */ '@/views/simpleTest/SelectMember.vue'),
+  },
+  {
+    path: '/psycheck/question',
+    name: 'Psy Check Question',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('psycheck.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheckQuestion" */ '@/views/simpleTest/Question.vue'),
+  },
+  {
+    path: '/psycheck/result/:id',
+    name: 'Psy Check Result',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('psycheck.result.pageTitle'),
+      isBottomNav: true,
+      bgColor: '#F87761',
+    },
+    component: () => import(/* webpackChunkName: "psycheckResult" */ '@/views/simpleTest/Result.vue'),
+  },
+  {
+    path: '/psycheck/:id',
+    name: 'Psy Check Cover',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('psycheck.pageTitle'),
+      bgColor: '#FFF',
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "psycheck" */ '@/views/simpleTest/SimpleTestCover.vue'),
   },
   {
     path: '/sidebar',

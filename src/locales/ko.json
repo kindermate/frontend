@@ -373,7 +373,27 @@
     }
   },
   "psycheck": {
-    "pageTitle": "심리테스트"
+    "pageTitle": "심리테스트",
+    "cover": {
+      "noticeLabel": "참고하세요",
+      "notice": "평소 자녀가 보이는 행동 혹은 최근 행동의 변화 정도에 표기하시면 됩니다.",
+      "startButton": "대상자 선택하기"
+    },
+    "selectMember": {
+      "greeting": "테스트 대상자를 선탁하세요",
+      "addButton": "테스트 대상자 추가하기",
+      "completeButton": "테스트 대상자 선택 완료",
+      "empty": "테스트 결과가 없습니다"
+    },
+    "question": {
+      "completeButton": "체크 완료"
+    },
+    "answer": {
+      "five": ["전혀<br>아니다", "아니다", "중간", "그렇다", "매우<br>그렇다"]
+    },
+    "result": {
+      "pageTitle": "심리테스트 결과"
+    }
   },
   "sidebar": {
     "pageTitle": "전체"

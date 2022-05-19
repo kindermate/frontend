@@ -33,6 +33,10 @@ export default new Vuex.Store({
         PBT: false,
       },
     },
+    psycheck: {
+      testCode: '',
+      currentMember: {},
+    },
     result: {
       currentMember: {},
       currentResult: {},
@@ -81,6 +85,12 @@ export default new Vuex.Store({
     },
     SET_RATING(state, payload) {
       state.mission.currentMission.rating = payload;
+    },
+    SET_PSYCHECK_CODE(state, payload) {
+      state.psycheck.testCode = payload;
+    },
+    SET_PSYCHECK_MEMBER(state, payload) {
+      state.psycheck.currentMember = payload;
     },
     RESET_MEMBER(state) {
       state.member = {};
