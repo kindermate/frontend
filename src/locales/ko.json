@@ -386,7 +386,8 @@
       "empty": "테스트 결과가 없습니다"
     },
     "question": {
-      "completeButton": "체크 완료"
+      "completeButton": "체크 완료",
+      "alert": "모든 문항에 답변해주세요."
     },
     "answer": {
       "five": ["전혀<br>아니다", "아니다", "중간", "그렇다", "매우<br>그렇다"]

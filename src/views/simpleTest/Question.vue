@@ -104,6 +104,10 @@ export default {
       }
     },
     async complete() {
+      if (!this.isFinish) {
+        alert(this.$t('psycheck.question.alert'));
+        return;
+      }
       // 점수 합산
       this.finalScore = this.calculateScore();
       this.grade = this.calculateGrade();
