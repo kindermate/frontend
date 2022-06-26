@@ -162,6 +162,28 @@ const routes = [
     component: () => import(/* webpackChunkName: "mission" */ '@/views/mission/Mission.vue'),
   },
   {
+    path: '/mission/all',
+    name: 'Mission All',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('mission.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "missionAll" */ '@/views/mission/MissionAll.vue'),
+  },
+  {
+    path: '/mission/detail-weeks',
+    name: 'Mission Detail For Weeks',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('mission.pageTitle'),
+      isBottomNav: true,
+      bgColor: '#6FC9D6',
+    },
+    component: () =>
+      import(/* webpackChunkName: "missionDetailForWeeks" */ '@/views/mission/MissionDetailForWeeks.vue'),
+  },
+  {
     path: '/mission/detail',
     name: 'Mission Detail',
     meta: {
@@ -182,6 +204,16 @@ const routes = [
       bgColor: '#6FC9D6',
     },
     component: () => import(/* webpackChunkName: "missionNext" */ '@/views/mission/MissionNext.vue'),
+  },
+  {
+    path: '/mission/finish',
+    name: 'Mission Finish',
+    meta: {
+      auth: true,
+      pageTitle: i18n.t('mission.pageTitle'),
+      isBottomNav: true,
+    },
+    component: () => import(/* webpackChunkName: "missionFinish" */ '@/views/mission/MissionFinish.vue'),
   },
   {
     path: '/result',

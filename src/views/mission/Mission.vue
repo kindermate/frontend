@@ -3,41 +3,48 @@
     <h1 class="page-title">{{ $t('mission.greeting') }}</h1>
     <p v-html="$t('mission.description')"></p>
     <ul v-if="isLoaded" class="member-list">
-      <li v-for="(member, index) in members" :key="member.id" @click="viewDetail(index)">
-        <div class="head">
-          <ProfileListBlock :member="member" />
-          <div v-if="member.missionSet" class="week">
-            <CircleIcon>
-              <img src="@/assets/img/time.svg" />
-            </CircleIcon>
+      <li v-for="(member, index) in members" :key="member.id">
+        <div class="mission-click" @click="viewDetail(index)">
+          <div class="head">
+            <ProfileListBlock :member="member" />
+            <div v-if="member.missionSet" class="week">
+              <CircleIcon>
+                <img src="@/assets/img/time.svg" />
+              </CircleIcon>
+              <!-- 단일 미션 주차 -->
+              <span v-if="!Array.isArray(member.missionSet)">{{ member.missionSet.week }}주차</span>
+              <!-- 복수 미션 주차 -->
+              <span v-else>{{ member.missionSet[0].week }}주차</span>
+            </div>
+          </div>
+          <div v-if="member.missionSet" class="mission-container">
             <!-- 단일 미션 주차 -->
-            <span v-if="!Array.isArray(member.missionSet)">{{ member.missionSet.week }}주차</span>
-            <!-- 복수 미션 주차 -->
-            <span v-else>{{ member.missionSet[0].week }}주차</span>
-          </div>
-        </div>
-        <div v-if="member.missionSet" class="mission-container">
-          <!-- 단일 미션 주차 -->
-          <div v-if="!Array.isArray(member.missionSet)" class="mission">
-            <div class="head">
-              {{ $t(`mission.code.${member.missionSet.code}`) }} - {{ member.missionSet.name }}
-            </div>
-            <div class="task">
-              <div class="name" v-for="task in member.missionSet.tasks" :key="task._id">{{ task.title }}</div>
-            </div>
-          </div>
-          <!-- 복수 미션 주차 -->
-          <div v-else class="missions">
-            <div class="help">
-              5~10주차 미션은 기질검사(CTT)와 다면적성검사(MAT)의 미션이 동시에 진행됩니다.
-            </div>
-            <div v-for="(mission, index) in member.missionSet" :key="index" class="mission">
-              <div class="head">{{ $t(`mission.code.${mission.code}`) }} - {{ mission.name }}</div>
+            <div v-if="!Array.isArray(member.missionSet)" class="mission">
+              <div class="head">
+                {{ $t(`mission.code.${member.missionSet.code}`) }} - {{ member.missionSet.name }}
+              </div>
               <div class="task">
-                <div class="name" v-for="task in mission.tasks" :key="task._id">{{ task.title }}</div>
+                <div class="name" v-for="task in member.missionSet.tasks" :key="task._id">
+                  {{ task.title }}
+                </div>
+              </div>
+            </div>
+            <!-- 복수 미션 주차 -->
+            <div v-else class="missions">
+              <div class="help">
+                5~10주차 미션은 기질검사(CTT)와 다면적성검사(MAT)의 미션이 동시에 진행됩니다.
+              </div>
+              <div v-for="(mission, index) in member.missionSet" :key="index" class="mission">
+                <div class="head">{{ $t(`mission.code.${mission.code}`) }} - {{ mission.name }}</div>
+                <div class="task">
+                  <div class="name" v-for="task in mission.tasks" :key="task._id">{{ task.title }}</div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div v-if="member.missionSet" class="all-missions">
+          <a @click="viewAllMissions(index)">이전 주차 미션 보기</a>
         </div>
       </li>
     </ul>
@@ -71,6 +78,7 @@ export default {
       try {
         const { data } = await getMembersWithMissions(this.userId);
         this.members = data.data;
+        console.log(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -145,10 +153,10 @@ export default {
               const response1 = await getMissionInfo({ code: 'CTT', week: week, grade: grade[0] });
               this.members[index]['missionSet'] = [];
               this.members[index]['missionSet'].push(response1.data.data);
-              console.log(index, response1.data.data);
+              // console.log(index, response1.data.data);
               const response2 = await getMissionInfo({ code: 'MAT', week: week, grade: grade[1] });
               this.members[index]['missionSet'].push(response2.data.data);
-              console.log(index, response2.data.data);
+              // console.log(index, response2.data.data);
             } catch (error) {
               console.log(error);
             } finally {
@@ -216,6 +224,12 @@ export default {
       this.$store.commit('SET_MISSION', payload);
       this.$router.push('/mission/detail');
     },
+    viewAllMissions(index) {
+      const member = this.members[index];
+      const mission = this.members[index].missions[0];
+      this.$store.commit('SET_ALL_MISSION', { member, mission });
+      this.$router.push('/mission/all');
+    },
   },
   async created() {
     await this.fetchMembers();
@@ -238,6 +252,7 @@ export default {
       border-radius: 10px;
       margin-bottom: 1.5rem;
       cursor: pointer;
+      overflow: hidden;
 
       .head {
         display: flex;
@@ -289,6 +304,20 @@ export default {
               }
             }
           }
+        }
+      }
+
+      .all-missions {
+        background-color: rgba($color: $grey, $alpha: 0.7);
+        margin: -1rem;
+        margin-top: 1.5rem;
+        a {
+          display: block;
+          color: #fff;
+          text-align: center;
+          font-size: $font-sm;
+          font-weight: 500;
+          padding: 0.8rem;
         }
       }
     }

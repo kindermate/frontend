@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <div class="mission-content">
+    <div v-if="!isLastMission" class="mission-content">
       <div class="image">
         <img src="@/assets/img/theo-build.svg" />
       </div>
@@ -32,6 +32,22 @@
         >
       </div>
     </div>
+    <div v-else class="mission-content">
+      <div class="image">
+        <img src="@/assets/img/theo-build.svg" />
+      </div>
+      <div class="process">
+        <div class="bar" ref="bar"></div>
+      </div>
+      <div class="week">
+        {{ mission.week }}주차 미션 달성률 <b>{{ getPercentage() }}%</b>
+      </div>
+      <div class="comment">{{ message }}</div>
+      <div class="next">12주차의 모든 미션을 달성하셨습니다.</div>
+      <div class="buttons mt-5">
+        <a @click="finishMission" class="button is-fullwidth is-primary">12주 미션 완료!</a>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -46,6 +62,7 @@ export default {
     return {
       message: '',
       availableNextMission: false,
+      isLastMission: false,
     };
   },
   components: {
@@ -81,6 +98,9 @@ export default {
         console.log(error);
       }
     },
+    finishMission() {
+      this.$router.push('/mission/finish');
+    },
     async fetchMessage() {
       const score = Math.ceil(this.mission.rating);
       try {
@@ -100,6 +120,10 @@ export default {
     this.checkAvailableNextMission();
     this.fetchMessage();
     // rating 판단 후 클로드 멘트 로드
+    // 마지막 미션 처리
+    if (this.mission.items[0].week === 12) {
+      this.isLastMission = true;
+    }
   },
 };
 </script>

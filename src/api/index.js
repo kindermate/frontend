@@ -100,6 +100,10 @@ export const getCommentary = payload => {
 };
 
 // mission
+export const getMission = id => {
+  return instance.get(`/mission/${id}`);
+};
+
 export const getMembersWithMissions = id => {
   return instance.get(`/missions/${id}`);
 };
@@ -120,6 +124,14 @@ export const missionComplete = id => {
 
 export const getMessage = score => {
   return instance.get(`/missions/message/${score}`);
+};
+
+export const getMessageForFinish = score => {
+  return instance.get(`/missions/message/closing/${score}`);
+};
+
+export const finishMission = id => {
+  return instance.get(`/mission/finish/${id}`);
 };
 
 export const getMemoAll = payload => {
@@ -190,6 +202,11 @@ export const getPostAll = payload => {
 
 export const getPost = id => {
   return instance.get(`/posts/${id}`);
+};
+
+// page
+export const getPage = id => {
+  return instance.get(`/pages/${id}`);
 };
 
 // guide

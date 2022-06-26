@@ -1,23 +1,23 @@
 <template>
   <section class="privacy">
-    <div class="content" v-html="post.content"></div>
+    <div class="content" v-html="page.content"></div>
   </section>
 </template>
 
 <script>
-import { getPost } from '@/api';
+import { getPage } from '@/api';
 export default {
   data() {
     return {
-      post: '',
+      page: '',
     };
   },
   methods: {
-    async fetchPost() {
+    async fetchPage() {
       try {
-        const { data } = await getPost('6239f55f16a92a2f9b1e5fb4');
+        const { data } = await getPage('62b37019fc04de4052b642c9');
         if (data.success) {
-          this.post = data.data;
+          this.page = data.data;
         }
       } catch (error) {
         console.log(error);
@@ -25,7 +25,7 @@ export default {
     },
   },
   created() {
-    this.fetchPost();
+    this.fetchPage();
   },
 };
 </script>

@@ -184,6 +184,9 @@ export default {
       const birth = moment(this.member.birth);
       return today.diff(birth, 'months');
     },
+    getMissionListCount() {
+      return this.mission.items[0].week;
+    },
   },
   methods: {
     getPercentage(value) {
@@ -335,7 +338,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1.5rem 1.5rem;
+    padding: 0.3rem 1.5rem 1.5rem;
     .day {
       color: #fff;
       text-align: right;

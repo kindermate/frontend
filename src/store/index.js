@@ -13,6 +13,10 @@ export default new Vuex.Store({
       currentMember: {},
       currentMission: {},
     },
+    allMission: {
+      currentMember: {},
+      currentMission: {},
+    },
     event: [],
     locale: null,
     bottomNav: true,
@@ -82,6 +86,10 @@ export default new Vuex.Store({
     SET_MISSION(state, payload) {
       state.mission.currentMember = payload.member;
       state.mission.currentMission = payload.mission;
+    },
+    SET_ALL_MISSION(state, payload) {
+      state.allMission.currentMember = payload.member;
+      state.allMission.currentMission = payload.mission;
     },
     SET_RATING(state, payload) {
       state.mission.currentMission.rating = payload;

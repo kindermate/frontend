@@ -25,19 +25,10 @@ export default {
 
 <style lang="scss" scoped>
 .loading {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba($color: #fff, $alpha: 0.9);
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 99;
   display: flex;
   align-items: center;
   .lottie {
-    width: 150px !important;
+    width: 100px !important;
   }
 }
 </style>

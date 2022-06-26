@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getPost } from '@/api';
+import { getPage } from '@/api';
 import FullwidthCheckbox from '@/components/common/FullwidthCheckbox.vue';
 import ModalBlank from '@/components/common/ModalBlank.vue';
 
@@ -78,20 +78,20 @@ export default {
     },
     async viewPost(name) {
       this.showModal = true;
-      let postId = '';
+      let pageId = '';
       try {
         if (name === 'usage') {
-          postId = '6238b7c733bc3d0cd4958e44';
+          pageId = '62b3704ffc04de4052b642e4';
         } else if (name === 'privacy') {
-          postId = '6239f55f16a92a2f9b1e5fb4';
+          pageId = '62b37019fc04de4052b642c9';
         } else if (name === 'marketing') {
-          postId = '6242f43e4fa1cf7e2ebbb5fe';
+          pageId = '62b3702afc04de4052b642d2';
         } else if (name === 'marketingUse') {
-          postId = '6242f4564fa1cf7e2ebbb602';
+          pageId = '62b3705ffc04de4052b642ed';
         } else if (name === 'promotion') {
-          postId = '6242f46b4fa1cf7e2ebbb606';
+          pageId = '62b3703cfc04de4052b642db';
         }
-        const { data } = await getPost(postId);
+        const { data } = await getPage(pageId);
         if (data.success) {
           this.modalTitle = data.data.title;
           this.modalContent = data.data.content;
